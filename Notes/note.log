@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.4.18)  15 SEP 2014 14:59
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.4.18)  15 SEP 2014 18:31
 entering extended mode
  %&-line parsing enabled.
 **note.tex
@@ -312,8 +312,7 @@ File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
 Package: setspace 2000/12/01 6.7 Contributed and Supported LaTeX2e package
 
 Package: `setspace' 6.7 <2000/12/01>
-)
-No file note.aux.
+) (./note.aux)
 \openout1 = `note.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
@@ -328,6 +327,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
 LaTeX Font Info:    ... okay on input line 34.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
 LaTeX Font Info:    ... okay on input line 34.
+
 *geometry auto-detecting driver*
 *geometry detected driver: pdftex*
 -------------------- Geometry parameters
@@ -389,12 +389,18 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 40.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-No file note.toc.
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./note.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 2.
+)
 \tf@toc=\write3
 \openout3 = `note.toc'.
 
-[2]
+ [2]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -405,12 +411,6 @@ Type  H <return>  for immediate help.
 l.50 \newline
              
 ? 
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 86.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 86.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 86.
 ! You can't use `\spacefactor' in math mode.
 \@->\spacefactor 
                  \@m 
@@ -461,10 +461,10 @@ l.174 Hello world program #
 ? 
 [5] [6] (./note.aux) ) 
 Here is how much of TeX's memory you used:
- 3206 strings out of 493848
- 41367 string characters out of 1152823
+ 3195 strings out of 493848
+ 41257 string characters out of 1152823
  233896 words of memory out of 3000000
- 6486 multiletter control sequences out of 15000+50000
+ 6471 multiletter control sequences out of 15000+50000
  8808 words of font info for 31 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  26i,6n,42p,176b,1644s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -475,7 +475,7 @@ texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texliv
 e/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type
 1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
 onts/cm/cmsy10.pfb>
-Output written on note.pdf (6 pages, 105581 bytes).
+Output written on note.pdf (6 pages, 105920 bytes).
 PDF statistics:
  49 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
