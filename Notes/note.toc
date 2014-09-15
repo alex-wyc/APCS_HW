@@ -1,0 +1,10 @@
+\contentsline {section}{\numberline {1}2014-9-8}{3}
+\contentsline {subsection}{\numberline {1.1}Comparison of Programming Languages}{3}
+\contentsline {section}{\numberline {2}2014-9-10}{4}
+\contentsline {subsection}{\numberline {2.1}"Hello World" in Java}{4}
+\contentsline {subsection}{\numberline {2.2}Running Java}{4}
+\contentsline {subsection}{\numberline {2.3}Java technicalities}{4}
+\contentsline {section}{\numberline {3}2014-9-11}{5}
+\contentsline {subsection}{\numberline {3.1}Moving into the "java way" of doing things!}{5}
+\contentsline {section}{\numberline {4}2014-9-15}{5}
+\contentsline {subsection}{\numberline {4.1}Typical anatomy of Java Program}{5}

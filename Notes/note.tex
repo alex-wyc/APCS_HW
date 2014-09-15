@@ -1,0 +1,259 @@
+\documentclass [12 pt, twoside] {article}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{setspace}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0,0,0.6}
+\definecolor{backcolor}{rgb}{0.95,0.95,0.95}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor = \color{backcolor},
+	commentstyle = \color{codeblue},
+	keywordstyle = \color{codegreen},
+	numberstyle = \color{codegray},
+	stringstyle = \color{magenta},
+	basicstyle = \footnotesize,
+	breakatwhitespace = false,
+	breaklines = true,
+	captionpos = b,
+	keepspaces = true,
+	numbers = left,
+	numbersep = 5pt,
+	showspaces = false,
+	showstringspaces = false,
+	showtabs = false,
+	tabsize = 4
+}
+
+\lstset{style = mystyle}
+
+\begin{document}
+
+\title{APCS Notes}
+\author{Yicheng Wang}
+\date{2014-2015}
+
+\maketitle
+\newpage
+\setcounter{tocdepth}{3}
+\tableofcontents
+\newpage
+
+\section{2014-9-8}
+
+
+\subsection{Comparison of Programming Languages}
+\newline
+\textbf{Scheme}:
+\newline Annoying Prefix Notation
+\newline strict syntax
+\newline not object oriented
+\newline only seperated by parenthesis
+\newline IDE NOT necessary
+\newline Mostly recursion + list
+\newline Functional Programming Language (Everything is a function)
+\newline
+\newline
+\textbf{Netlogo}:
+\newline GUI based
+\newline Shines on Interactive Modeling
+\newline Bad for input/output data
+\newline Parallel Programming Language
+\newline Not a general-purpose language -- ONLY USEFUL IN NETLOGO ENVIROMENT
+\newline Netlogo IDE (Integrated Development Enviroment) NECESSARY
+\newline
+\newline
+\textbf{Python}:
+\newline High-level Language
+\newline Uses Indentation
+\newline infixed math + prefix function
+\newline Linear processing
+\newline General-purpose language
+\newline Interperted Language
+\newline IDE NOT necessary
+\newline
+\newline
+\textbf{Java}:
+\newline Object oriented
+\newline infixed math + prefix function
+\newline Mid-level Language
+\newline
+\newline
+$\LaTeX$
+\newline Markup Language
+\newline Compiled Language
+
+\newpage
+\section{2014-9-10}
+\subsection{"Hello World" in Java}
+
+
+Last year, we learned how to write the "Hello World" program in python.
+\begin{lstlisting}[language=Python]
+def hello():
+	print "Hello world!"
+
+hello()
+\end{lstlisting}
+
+
+Now, we'll learn about how to do this in Java:
+
+
+Java is more restrictive than python, java programs are usually in their own folders.
+Java's invented for portability and "amount of stupid/super-smart people."
+Different smart people have different ways of approaching problems.
+Java's designed to limit people's ways of doing things to make big project easy.
+Real good programmers don't like java... b/c it's restrictive.
+Java is designed to be industrially viable.
+
+
+An object defines a specific thing within your program.
+Everything in java is an object.
+\newline A Class = object type.
+\newline Tradition = 1 class per file, named starting with upper-case letter
+
+
+Here's a simple program in Java:
+\begin{lstlisting}[language=Java]
+/*
+	This is a null line
+	C'est un comment!
+*/
+
+// C'est un end-of-line comment
+
+import java.io.*;
+import java.util.*;
+
+public class Hello {  // public = the outside world (aka other things in your program) can see this
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+	}
+}
+\end{lstlisting}
+
+
+\subsection{Running Java}
+Source code (foo.java) $\to$ Java compiler (foo.class) $\to$ JVM
+\newline Note that java doesn't compile to machine code, java compiles to javaBiteCode using JVM. This is where the portability comes in.
+
+
+\subsection{Java technicalities}
+method = function in python
+\newline You  need a method in one of you're classes called "main"
+
+
+\section{2014-9-11}
+\subsection{Moving into the "java way" of doing things!}
+
+
+Java is object oriented.
+Object oriented means that the world is made of objects.
+Every object has its unique attributes.
+Objects also have abilities, aka things they can do.
+Every program in java is made of objects.
+
+
+Let's take the example of a simple chess program.
+An example of an object would be a pawn.
+It would have attributes like color and position.
+Its abilities would include moving and attacking.
+However, these pawns are different, White pawn 1-8 and Black pawn 1-8.
+They behave in the same way, but they have different positions.
+You don't want 16 seperate definitions b/c most of them are the same.
+Therefore one would create a class for all of the pawns, which would define the "info about objects."
+We then make objects which are known as "instances of a class."
+Objects are made based on the definitions defined within the class.
+
+
+Hello world program #2 -- the java way:
+\begin{lstlisting}[language=Java]
+// We'll use objects to do stuff
+
+import java.io.*;
+import java.util.*;
+
+public class Greeter {
+	// We put the attributes here
+
+	// We put the abilities here
+	// In Java, these are called methods
+	// Methods are functions, but they belong to specific classes
+	public void greet() {
+	
+	// public = can be called from outside the class
+	// void = this doesn't send anything back, like null returner in C
+ 
+		System.out.println("Hello world!");
+	}
+}
+\end{lstlisting}
+
+\section{2014-9-15}
+\subsection{Typical anatomy of Java Program}
+
+
+A program is consisted of objects.
+One must tell java where to start the program --> public static void main
+One calls that class "driver," it starts the java program.
+
+
+Driver.java:
+\begin{lstlisting}[language=Java]
+
+import java.io.*;
+import java.util.*;
+
+public class Driver {
+	public static void main(String[] args) {
+		
+		\\How to use the greeter within the driver.
+		
+		Greeter g;
+		\\Creates a local variable to be of type greeter
+
+		/*
+		Variable declaration, all variables must be declared
+		like global, turtles-own and patches-own variables in netlogo
+		Declaration specifies the type of the variable
+		local variable = a variable only visible/usable within a method, created when the method is called, destroyed when the function exits
+		*/
+
+		/*
+		When main is ran, it occupies some memory on the computer
+		Greeter g is a small box within main, we need to do something with it
+		or java refuses to do stuff with it
+		*/
+
+		g = new Greeter();
+		/*
+		New:
+		 1. Allocates enough memory to store a Greeter.
+		 2. Do whatever's necessary to setup / initiates the memory to be a Greeter.
+		 3. Returns the address of the memory that was allocated.
+
+		 The assignment statement stores the address in g.
+		*/
+
+		System.out.println(g);
+		
+		// This prints the location of the variable g within the memory
+
+		/*
+		When this file is compiled, Greeter is compiled as well
+		All methods/class called during main are compiled as well
+		*/
+
+		g.greet();
+		/*
+		Accesses the greet method within the class g.
+		*/
+	}
+}
+\end{lstlisting}
+\end{document}
