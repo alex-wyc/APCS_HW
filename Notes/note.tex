@@ -256,4 +256,91 @@ public class Driver {
 	}
 }
 \end{lstlisting}
+\section{2014-9-17}
+\subsection{Instance vs Local variable}
+
+
+The instance variable is defined within the class and can be called from outside (if public) as well as methods w/i the class.
+Note that local variable within the methods overshadow instance variables of the same name.
+To assign a public instance variable from an outside object is: <objectName>.<variable name> = new <Variable Type> <variable value>;
+Instance variables are like turtle variables in NetLogo.
+
+
+Instance Variables: Declared in class otside the methods. Usually at the top.
+Each instance (object) of the class has its own copy of the instance variables.
+
+
+Ex.
+\begin{lstlisting}[language=java]
+public class Driver {
+	public static void main(String[] args) {
+		Greeter g1 = new Greeter();
+		g1.greeting = new String("Sup!");
+		g1.greet();
+	}
+}
+\end{lstlisting}
+
+
+In here, the Driver class assigns the instance variable "greeting" a new value.
+If greeting is set to private, the above code will not work.
+In java, we almost NEVER make instance variables public so you can't assign them from outside.
+Instead, we write public "set" methods within the class which then assigns the private instance variable.
+"Set" methods will be covered in detail next time.
+
+
+\section{2014-9-18}
+\subsection{Setter Function}
+
+
+A setter function edits a private instance variable from within its own class.
+An example follows:
+\begin{lstlisting}[language=java]
+public class Greeter4 {
+	private String greeting = new String ("Hello World!");
+	public void greet() {
+		//	String greeting = new String("Sup!");
+		System.out.println(greeting);
+	}
+	public void setGreeting(String s) { // This is the setter function
+		greeting = s;
+	}
+	public void ungreet() {
+		System.out.println("I'm out!'");	
+	}
+}
+\end{lstlisting}
+
+
+\subsection{Return Type}
+
+
+In java, the name after public/private specifies the return type.
+A method can return any type of value (String, Int, even custom classes).
+When the function doesn't return any value, the type is "void"
+
+
+An example getter method follows:
+\begin{lstlisting}[language=java]
+	
+	\\ blah stuff above
+
+	public void setGreeting(String s) {
+		greeting = s;
+	}
+
+	\\blah stuff below
+\end{lstlisting}
+
+
+Note that when the getter function is called, it is tantamount to a STRING!
+It can be used whenever a string is used.
+
+
+\subsection{Style Stuff}
+
+
+Stylisticly speaking, in most languages, we should usually avoid using void and print stuff.
+However, they should return a value and then be printed in the main function.
+
 \end{document}
