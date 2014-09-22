@@ -343,4 +343,139 @@ It can be used whenever a string is used.
 Stylisticly speaking, in most languages, we should usually avoid using void and print stuff.
 However, they should return a value and then be printed in the main function.
 
+
+\subsection{Constructor Functions}
+
+
+These functions are called only when new objects are declared.
+Constructor functions are always public, its name is the name of the class, and there's no return value (NOT VOID, simply NO return value).
+This will be called when you run the new statemet.
+
+
+Note that once we write a constructor, we lose the default constructor.
+This means all assignments must have a set parameter list.
+We solve this problem via overloading.
+We'll make multiple constructors, for example, we make 2 constructors, one with a String parameter while the other one doesn't have a parameter.
+
+
+\section{2014-9-19}
+\subsection{Full Anatomy of a Java Program}
+
+
+Super generic java code of a class:
+\begin{lstlisting}[language=Java]
+import java.io.*; // import pacakges (iff you need them)
+
+public class genericClass { // class name, camelTyped, same name as file
+	// instance variables
+
+	private String s; // instance variables are almost always private
+	
+	private String s2 = "hello"; // Declaration and assignment can be done at once
+	
+	private String s3,s4,s5; // multiple declaration seperated by commas
+
+	// constructors <- called automatically on "new"
+
+	public genericClass(String s) { // ALWAYS PUBLIC and NO RETURN VALUE
+		// do stuff here!
+	}
+	
+	public genericClass() { // Constructors can be overloaded
+		// do stuff!
+	}
+
+	// methods
+
+	public void method1(params) {
+		blah;
+	}
+
+	private String method2(params) {
+		blah2;
+	}
+}
+\end{lstlisting}
+
+
+\subsection{work!}
+
+
+Write a method greetPerson, which takes 1 parameter (name) and appends the name to the greeting.
+
+
+Write another method called "LOUD GREET," which returns greet in AllCaps.
+
+
+\section{2014-9-22}
+\subsection{string literal vs new function}
+
+
+Let's look at the following code:
+\begin{lstlisting}[languge = Java]
+	public void test1() {
+		String s1 = "hello";
+		String s2 = "hello";
+		String s3 = new String("hello");
+		String s4 = new String("hello");
+		System.out.println("s1 == s2:" + (s1 == s2));
+		System.out.println("s1 == s3:" + (s1 == s3));
+		System.out.println("s1 == s4:" + (s1 == s4));
+		System.out.println("s2 == s3:" + (s2 == s3));
+		System.out.println("s2 == s4:" + (s2 == s4));
+		System.out.println("s3 == s4:" + (s3 == s4));
+	}
+\end{lstlisting}
+
+
+When run, everything except the first line returns false.
+This is because of the different means of variable assignment.
+When s1 is assigned, java creates a block of memory to store the sting "hello."
+When s2 is assigned, java checks for the existance of "hello" and finds the memory block of s1.
+Then s2 is assigned to the same memory as s1.
+Therefore s2 equals to s1.
+However, new function doesn't check pre-existing "hello" but creates a new memory block.
+Therefore the memory location of s1,s3, and s4 are all different.
+
+
+\subsection{string methods}
+\subsubsection{.equals(<string>) method:}
+
+
+It compares the literal value of the string instead of the memory location.
+
+
+\subsubsection{.equalsIgnoreCase(<string) method:}
+
+
+Same as .equals, but ignores case
+
+
+\subsubsection{.compareTo(<string>) method:}
+
+
+It's like a dictionary ordering.
+Returns 0 if the original object is equal to the new string
+\newline
+Returns > 0 if the original object is greater than the new string
+\newline
+Returns < 0 if the original object is less than the new string
+
+
+\subsubsection{.contains(<string>) method}:
+
+
+Returns if the new stirng is w/i the old string.
+
+
+\subsubsection{.endswith(<string>) and .startswith(<string>)}
+
+
+As the name suggests, ends with blah and starts with blah
+
+
+\subsubsection{.isEmpty()}
+
+
+Returns true if the sting is empty. False otherwise.
 \end{document}

@@ -14,3 +14,16 @@
 \contentsline {subsection}{\numberline {6.1}Setter Function}{7}
 \contentsline {subsection}{\numberline {6.2}Return Type}{8}
 \contentsline {subsection}{\numberline {6.3}Style Stuff}{8}
+\contentsline {subsection}{\numberline {6.4}Constructor Functions}{8}
+\contentsline {section}{\numberline {7}2014-9-19}{8}
+\contentsline {subsection}{\numberline {7.1}Full Anatomy of a Java Program}{8}
+\contentsline {subsection}{\numberline {7.2}work!}{9}
+\contentsline {section}{\numberline {8}2014-9-22}{9}
+\contentsline {subsection}{\numberline {8.1}string literal vs new function}{9}
+\contentsline {subsection}{\numberline {8.2}string methods}{10}
+\contentsline {subsubsection}{\numberline {8.2.1}.equals(<string>) method:}{10}
+\contentsline {subsubsection}{\numberline {8.2.2}.equalsIgnoreCase(<string) method:}{10}
+\contentsline {subsubsection}{\numberline {8.2.3}.compareTo(<string>) method:}{10}
+\contentsline {subsubsection}{\numberline {8.2.4}.contains(<string>) method}{10}
+\contentsline {subsubsection}{\numberline {8.2.5}.endswith(<string>) and .startswith(<string>)}{10}
+\contentsline {subsubsection}{\numberline {8.2.6}.isEmpty()}{10}
