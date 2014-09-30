@@ -3,15 +3,24 @@ public class CBL {
 	// Written within 3 min
 	public String frontTimes(String str, int n) {
 		
+		if (n == 0) {
+			
+			return "";
+			
+		}
+		
 		if (str.length() >= 3) {
 
-			str = str.subString(0,3);
+			str = str.substring(0,3);
 
 		}
+		
+		String ori = new String();
+		ori = str;
 
-		while (n > 0) {
+		while (n > 1) {
 
-			str = str + str;
+			str = str + ori;
 			n--;
 		
 		}
@@ -26,7 +35,7 @@ public class CBL {
 
 		String result = new String();
 
-		while (n <= str.length()) {
+		while (n < str.length()) {
 
 			if (n % 2 == 0) {
 				
@@ -43,22 +52,20 @@ public class CBL {
 	public String stringYak(String str) {
 
 		int n = 0;
+		boolean hasYak = false
 
 		while (n < str.length()) {
 			
-			if (str.subString(n,n+1) == "y" && str.subString(n+2,n+3) == "k") {
-	
-				str = str.subString(0,n) + str.subString(n+3);
-
-			}
-
-			else {
-
-				n++;
-
-			}
+			hasYak = str.substring(n, n + 3) == "yak";
+			
+			n ++
 		}
 
+		if (hasYak) {
+			
+			str = str.replace("yak", "");
+		}
+		
 		return str;
 	}
 
@@ -77,7 +84,7 @@ public class CBL {
 
 		}
 
-		while (position < (a.length() - 1)) {
+		while (position < (b.length() - 1)) {
 
 			if (a.subString(position, position + 2) == b.subString(position, position + 2)) {
 
