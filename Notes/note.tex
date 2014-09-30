@@ -412,7 +412,8 @@ Write another method called "LOUD GREET," which returns greet in AllCaps.
 
 
 Let's look at the following code:
-\begin{lstlisting}[languge = Java]
+\begin{lstlisting}[language=Java]
+public class genericClass {
 	public void test1() {
 		String s1 = "hello";
 		String s2 = "hello";
@@ -425,6 +426,7 @@ Let's look at the following code:
 		System.out.println("s2 == s4:" + (s2 == s4));
 		System.out.println("s3 == s4:" + (s3 == s4));
 	}
+}
 \end{lstlisting}
 
 
@@ -468,7 +470,7 @@ Returns < 0 if the original object is less than the new string
 Returns if the new stirng is w/i the old string.
 
 
-\subsubsection{.endswith(<string>) and .startswith(<string>)}
+\subsubsection{.endsWith(<string>) and .startsWith(<string>)}
 
 
 As the name suggests, ends with blah and starts with blah
@@ -478,4 +480,113 @@ As the name suggests, ends with blah and starts with blah
 
 
 Returns true if the sting is empty. False otherwise.
+
+
+\section{2014-9-23}
+\subsection{Tour of Primitive Stuff in Java}
+\subsubsection{primitive data types}
+
+
+Java has classes of Strings and any class we write.
+Java also have primitive data types:
+
+
+\newline
+
+
+\begin{tabular}{|c|l|}
+\hline
+int & integers \\
+\hline
+double & double-percision integers \\
+\hline
+char & single character \\
+\hline
+boolean & true/false \\
+\hline
+\end{tabular}
+
+
+\newline
+
+
+Strings and primitive data types work a bit differently.
+Every data we make on a 32-bit computer, the memory block assigned is a 32-bit blocks.
+The 32-bit block is called "work bit size."
+Any primitive type (their actual value) is stored in the variable's own memory location.
+Whereas class types, the variable's own memory location only stores the link to the actual class somewhere else in the memory.
+This is because one does not know how large a class can be.
+For example, on a 16-bit computer, if strings were stored as a primitive data type, the string can be most 4 letters.
+Therefore, to solve the problem with strings with arbitiary length, we only put a pointer within the class variable.
+
+
+However, one must be careful with the types.
+Java is really strict about type operations.
+For example, 5.0 / 2.0 returns 2.5.
+However, 5 / 2 returns 2.
+Bottom line is that one should not mix int and double
+
+
+\subsubsection{If Statements}
+
+
+Basic form of if in java:
+\begin{lstlisting}[language = Java]
+
+public class blah {
+
+	public void blah1() {
+		if (<boolean>) {
+			<insert statements here if the boolean is true>
+		}
+		else if (<boolean2>){
+			<insert statements here if the boolean1 is false and boolean2 is true>
+		}
+		else {
+			<insert statements here if both booleans are true>
+		}
+	}
+
+}
+
+\end{lstlisting}
+
+
+A list of comparison operators:
+
+
+Just everything in python, except double ampersand is and and double pipe is or.
+
+
+\section{2014-9-30}
+\subsection{loops}
+
+
+Loop means doing stuff over and over again until something are met.
+We technically don't need loops, because recursion can replace loop anytime.
+
+
+Examples of loop in languages:
+\begin{itemize}
+	\item Netlogo forever button
+	\item Netlogo while loop
+	\item Netlogo repeat loop
+	\item Python for loop
+	\item Python while loop
+\end{itemize}
+
+
+While loops can be thought as repeated if statements.
+In Java, the while loop is perfectly analogous to the python while.
+\begin{lstlisting}[language=java]
+
+	Codes
+
+	while (<boolean>) {
+		<statements>;
+	}
+
+	More codes.
+
+\end{lstlisting}
 \end{document}

@@ -25,5 +25,11 @@
 \contentsline {subsubsection}{\numberline {8.2.2}.equalsIgnoreCase(<string) method:}{10}
 \contentsline {subsubsection}{\numberline {8.2.3}.compareTo(<string>) method:}{10}
 \contentsline {subsubsection}{\numberline {8.2.4}.contains(<string>) method}{10}
-\contentsline {subsubsection}{\numberline {8.2.5}.endswith(<string>) and .startswith(<string>)}{10}
+\contentsline {subsubsection}{\numberline {8.2.5}.endsWith(<string>) and .startsWith(<string>)}{10}
 \contentsline {subsubsection}{\numberline {8.2.6}.isEmpty()}{10}
+\contentsline {section}{\numberline {9}2014-9-23}{10}
+\contentsline {subsection}{\numberline {9.1}Tour of Primitive Stuff in Java}{10}
+\contentsline {subsubsection}{\numberline {9.1.1}primitive data types}{10}
+\contentsline {subsubsection}{\numberline {9.1.2}If Statements}{11}
+\contentsline {section}{\numberline {10}2014-9-30}{11}
+\contentsline {subsection}{\numberline {10.1}loops}{11}
