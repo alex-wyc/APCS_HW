@@ -63,7 +63,7 @@ public class CBL {
 
 		if (hasYak) {
 			
-			str = str.replace("yak", "");
+			str = str.replaceAll("yak", "");
 		}
 		
 		return str;
