@@ -589,4 +589,94 @@ In Java, the while loop is perfectly analogous to the python while.
 	More codes.
 
 \end{lstlisting}
+
+
+\section{2014-10-06}
+\subsection{Software Development}
+
+
+Class dungeon crawl game -- Stuyablo! Example = nethack.
+We'll talk about our version of dungeon crawl.
+You have different types of entities:
+\begin{enumerate}
+	\item Monsters
+		\begin{itemize}
+			\item Attribute: inventory
+			\item Attribute: Armor
+			\item Attribute: Strength
+		\end{itemize}
+	\item Wizard
+		\begin{itemize}
+			\item Attribute: HP
+			\item Attribute: XP
+			\item Attribute: Level
+			\item Attribute: Mano
+			\item Attribute: Intellect
+		\end{itemize}
+	\item Warriors
+		\begin{itemize}
+			\item Attribute: Weapon
+			\item Attribute: Shield
+			\item Attribute: Strength
+			\item Attribute: Range
+		\end{itemize}
+	\item Rogue
+		\begin{itemize}
+			\item Attribute: HP -- Medium/Low
+			\item Attribute: Speed -- High
+			\item Attribute: Agility -- High
+			\item Attribute: Luck -- High
+			\item Attribute: Accuracy -- High
+			\item Attribute: Power -- Low
+			\item Attribute: Intellect -- High
+			\item Attribute: Charisma -- Medium/Low
+			\item Ability: Pickpocket
+			\item Ability: Poison/Assisinate
+			\item Alignment: 0--3
+		\end{itemize}
+	\item Cleric
+		\begin{itemize}
+			\item Attribute: HP
+			\item Attribute: XP
+			\item Attribute: Mano
+			\item Attribute: Healing power
+		\end{itemize}
+\end{enumerate}
+
+
+Each of these will have certain attributes and abilities.
+But some of them have common things, like health, inventory, etc.
+However, something like Manna are not the same for everything.
+Warriors, thiefs don't have Manna.
+We can say the same for abilities that all should have -- attack,
+defend, eat, pick up. However, things like spell-casting, pickpocket,
+etc. should be character-specific.
+
+
+For flexibility, java has \textbf{Class Inherentence}. Which means
+that one class can be based on or is an extension of another class.
+So we can make a class called "characters" with instance variables
+being the common abilities and attributes (XP, Level, attack, pick-up, 
+etc.) Then using class inherentence we can create specific character types.
+
+
+Class Inherentence Example:
+\begin{lstlisting}
+
+\\ Character.java
+public class Character {
+	private int hp = 20;
+
+	public int getHp() {
+		return hp;
+	}
+}
+
+\\ Wizard.java
+public class extend Character {
+
+}
+
+\\ Wizard will have everything character has
+\end{lstlisting}
 \end{document}
