@@ -663,8 +663,8 @@ etc.) Then using class inherentence we can create specific character types.
 Class Inherentence Example:
 \begin{lstlisting}
 
-\\ Character.java
-public class Character {
+\\ BaseChar.java
+public class BaseChar {
 	private int hp = 20;
 
 	public int getHp() {
@@ -673,10 +673,30 @@ public class Character {
 }
 
 \\ Wizard.java
-public class extend Character {
+public class extend BaseChar {
 
 }
 
 \\ Wizard will have everything character has
 \end{lstlisting}
+
+
+\section{2014-10-7}
+\subsection{Subclass and Superclass}
+
+
+Referring to yesterday's code, the BaseChar class is called
+the superclass of Wizard. And Wizard is called the
+subclass of BaseChar. Note that the subclass only has access
+to the public instance variables. Therefore, the inherent class
+can only call public functions.
+
+
+\textbf{overriding}: When a subclass has a variable or method of the same name 
+and signature as a method/variable in the superclass. Thus overriding
+the thing in the superclass.
+
+
+In order to access the superclass, we use super.<method> to access
+stuff that's been overridden.
 \end{document}
