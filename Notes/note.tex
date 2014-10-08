@@ -699,4 +699,49 @@ the thing in the superclass.
 
 In order to access the superclass, we use super.<method> to access
 stuff that's been overridden.
+
+
+\section{2010-10-8}
+\subsection{More Inheritence Stuff}
+
+
+A superclass can be referred to any of its subclasses. However, it can
+only call the overridden methods. It cannot get extended methods.
+
+
+\textbf{Casting}: call extended methods from superclass. Example:
+\begin{lstlisting}[language=java]
+
+	Basechar c = new Basechar();
+	Mage m1 = new Mage();
+	Basechar c1;
+
+	c1 = m1;
+
+	((Mage)c1).getManna();
+
+\end{lstlisting}
+
+
+The parenthesis is important because usually the "." operator takes precedence of the
+casting operator.
+
+
+More local stuff overwrite less local stuff. In order to specify
+explicitly the instance variables, you use this.<instance var>.
+
+
+Now suppose we get an attack method. We want
+to attack a basechar. Since all characters are
+extensions of Basechar. Ex. code:
+
+\begin{lstlisting}[language=java]
+
+	public void attack(Basechar other){
+		System.out.println(getName() + "attacked" other.getName());
+	}
+
+\end{lstlisting}
+
+
 \end{document}
