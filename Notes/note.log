@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.4.18)  6 OCT 2014 09:50
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.4.18)  9 OCT 2014 09:23
 entering extended mode
  %&-line parsing enabled.
 **note.tex
@@ -496,26 +496,26 @@ l.510 \newline
 [11]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 571.
- [12] [13] [14] (./note.aux) ) 
+ [12] [13] [14] [15] [16] (./note.aux) ) 
 Here is how much of TeX's memory you used:
- 3259 strings out of 493848
- 42040 string characters out of 1152823
+ 3273 strings out of 493848
+ 42182 string characters out of 1152823
  233896 words of memory out of 3000000
- 6532 multiletter control sequences out of 15000+50000
+ 6546 multiletter control sequences out of 15000+50000
  8808 words of font info for 31 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  26i,6n,42p,176b,1646s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1/public/amsf
-onts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmm
-i10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi12.pfb></u
-sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
-mf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/f
-onts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/p
-ublic/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
-s/cm/cmsy10.pfb>
-Output written on note.pdf (14 pages, 138142 bytes).
+</usr/share/texmf-texlive/fonts/type1/p
+ublic/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
+nts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi
+12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
+/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf
+-texlive/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fon
+ts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/cm/cmsy10.pfb>
+Output written on note.pdf (16 pages, 142901 bytes).
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
+ 86 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

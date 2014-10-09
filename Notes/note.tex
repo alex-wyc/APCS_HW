@@ -744,4 +744,50 @@ extensions of Basechar. Ex. code:
 \end{lstlisting}
 
 
+\section{2014-10-9}
+\subsection{Constructors and Inheritence}
+
+
+In order for a subclass to work, it needs to have everything set up
+for it in the superclass. Whenever one makes a subclass, it first
+calls the superclass constructor. It will also do so automatically.
+So you need to write each constructor at each level. If we don't
+explicitly call the super constructor, i.e. super(); as the first
+line of our subclass' constructor, java will call the superclass'
+default constructor. Therefore, use super to specify what will be done.
+
+
+Example Code:
+\begin{lstlisting}[language=java]
+
+public class Superclass {
+	
+	private String name;
+
+	public Superclass() {
+		setName("DEFAULT");
+	}
+
+	public Superclass(String n) {
+		setName(n);
+	}
+
+	public void setName(String n) {
+		name = n;
+	}
+}
+
+public class Subclass extends Superclass {
+
+	public Subclass() {
+		super();
+		// This will set the name as "DEFAULT"
+	}
+
+	public Subclass(String name) {
+		super(name);
+		// This will set the name as the parameter "name"
+	}
+}
+\end{lstlisting}
 \end{document}

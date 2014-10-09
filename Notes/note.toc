@@ -35,3 +35,9 @@
 \contentsline {subsection}{\numberline {10.1}loops}{12}
 \contentsline {section}{\numberline {11}2014-10-06}{13}
 \contentsline {subsection}{\numberline {11.1}Software Development}{13}
+\contentsline {section}{\numberline {12}2014-10-7}{15}
+\contentsline {subsection}{\numberline {12.1}Subclass and Superclass}{15}
+\contentsline {section}{\numberline {13}2010-10-8}{15}
+\contentsline {subsection}{\numberline {13.1}More Inheritence Stuff}{15}
+\contentsline {section}{\numberline {14}2014-10-9}{15}
+\contentsline {subsection}{\numberline {14.1}Constructors and Inheritence}{15}
