@@ -790,4 +790,40 @@ public class Subclass extends Superclass {
 	}
 }
 \end{lstlisting}
+
+
+\section{2014-10-24}
+
+
+\subsection{Array Stuff}
+
+
+Basic array declaration format: <type>[] <name> = new <type>[<length>].
+"Type" is the type of stuff that'll be stored within the array called <name>, like
+"int" "String" etc.
+Another more straight forward way of declaring arrays is to just type it after the equal sign.
+For example:
+\begin{lstlisting}[language=java]
+
+String[] message = new String[5] // string called message with 5 places
+
+for (i = 0 ; i < 5 ; i++) {
+	message[i] = blah;
+}
+\end{lstlisting}
+
+
+\section{2014-10-27}
+\subsection{Class Stuff -- Static and Final}
+
+
+When one tries to access an instance variable within the same class,
+instance variables can't be used because the class is technically
+not refering to itself. To use the stuff within the same class, you
+do have to declare a new instance of the class within itself.
+
+
+Final variables are variables whose values cannot be cahnged. For example
+<array>.length() is a final variable. These variables can be used but
+cannot be assigned or changed. 
 \end{document}

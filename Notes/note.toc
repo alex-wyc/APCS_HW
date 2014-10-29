@@ -41,3 +41,5 @@
 \contentsline {subsection}{\numberline {13.1}More Inheritence Stuff}{15}
 \contentsline {section}{\numberline {14}2014-10-9}{15}
 \contentsline {subsection}{\numberline {14.1}Constructors and Inheritence}{15}
+\contentsline {section}{\numberline {15}2014-10-24}{16}
+\contentsline {subsection}{\numberline {15.1}Array Stuff}{16}
