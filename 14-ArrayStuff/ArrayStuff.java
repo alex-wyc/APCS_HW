@@ -137,6 +137,48 @@ public class ArrayStuff{
 		return false;
 	}
 
+	public static boolean canBalance(int[] nums){
+
+		if (nums.length < 2) {
+			return false;
+		}
+
+		for (int i = 0 ; i < nums.length ; i++) {
+			int sum1 = 0, sum2 = 0;
+			
+			for (int a = 0 ; a < i ; a++) {
+				sum1 = sum1 + nums[a];
+			}
+
+			for (int b = i ; b < nums.length ; b++) {
+				sum2 = sum2 + nums[b];
+			}
+
+			if (sum1 == sum2) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	public static int[] seriesUp(int degree) {
+
+		int[] result = new int[degree * (degree + 1) / 2];
+		int pos = 0;
+
+		for (int i = 0 ; i < degree ; i++) {
+
+			for (int j = 0 ; j <= i ; j++) {
+				result[pos+j] = j+1;
+			}
+
+			pos = pos + i + 1;
+		}
+
+		return result;
+	}
+
 	public static void main(String[] args) {
 
 		ArrayStuff as = new ArrayStuff();
