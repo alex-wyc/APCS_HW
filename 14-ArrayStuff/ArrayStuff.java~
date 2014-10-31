@@ -127,9 +127,99 @@ public class ArrayStuff{
 			return false;
 		}
 
-		for (int i = 0 ; i < nums.length ; i++) {
+		for (int i = 0 ; i < nums.length - 2 ; i++) {
 
 			if ((nums[i+1] - nums[i]) == 1 && (nums[i+2] - nums[i+1]) == 1) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public static boolean canBalance(int[] nums){
+
+		if (nums.length < 2) {
+			return false;
+		}
+
+		for (int i = 0 ; i < nums.length ; i++) {
+			int sum1 = 0, sum2 = 0;
+			
+			for (int a = 0 ; a < i ; a++) {
+				sum1 = sum1 + nums[a];
+			}
+
+			for (int b = i ; b < nums.length ; b++) {
+				sum2 = sum2 + nums[b];
+			}
+
+			if (sum1 == sum2) {
+				return true; 
+			}
+		}
+		
+		return false;
+	}
+
+
+	public static int[] seriesUp(int degree) {
+
+		int[] result = new int[degree * (degree + 1) / 2];
+		int pos = 0;
+
+		for (int i = 0 ; i < degree ; i++) {
+
+			for (int j = 0 ; j <= i ; j++) {
+				result[pos+j] = j+1;
+			}
+
+			pos = pos + i + 1;
+		}
+
+		return result;
+	}
+
+	public static int maxMirror(int[] nums) {
+
+		boolean ok = true;
+
+		for (int i = 0 ; i <= nums.length ; i++) { // possible maxSize
+			
+			for (int j = 0 ; j < nums.length - i ; j++) { // Checking each position to see if it fits the possible maxSize
+				
+				int[] testing = Arrays.copyOfRange(nums, j, j + i);
+				int[] mirror = MirrorGen(testing);
+
+				if (!(contains(nums, mirror))) {
+					return i;
+				}
+
+			}
+
+		}
+
+		return nums.length;
+	}
+
+	public static int[] MirrorGen(int[] array) { // generates the mirror array
+
+		int[] mirror = new int[array.length];
+
+		for (int i = 0 ; i < array.length ; i++) {
+			mirror[array.length - 1 - i] = array[i];
+		}
+
+		return mirror;
+
+	}
+
+	public static boolean contains(int[] array1, int[] array2) { // Checks if array1 contains array2
+		
+		for (int i = 0 ; i < array1.length - array2.length ; i++) {
+			
+			if (Arrays.copyOfRange(array1, i , i + array2.length) == array2) {
+				
 				return true;
 			}
 		}
@@ -144,5 +234,10 @@ public class ArrayStuff{
 		System.out.println(as.array);
 		System.out.println(as.find(100));
 		System.out.println(as.maxVal());
+		System.out.println(as.maxMirror({1,2,3,8,9,3,2,1}));
+		System.out.println(as.maxMirror({1,2,3,2,1}));
+		System.out.println(as.maxMirror({1}));
+		System.out.println(as.maxMirror({}));
+		System.out.println(as.maxMirror({21,22,9,8,7,6,23,24,6,7,8,9,25,7,8,9}));
 	}
 }

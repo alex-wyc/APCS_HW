@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class ArrayStuff{
 
 	public int[] array = new int[100];
@@ -6,7 +8,7 @@ public class ArrayStuff{
 		
 		Random randgen = new Random();
 
-		for (i = 0; i < 100; i++) {
+		for (int i = 0; i < 100; i++) {
 			array[i] = 75 + randgen.nextInt(76);
 		}
 	}
@@ -38,12 +40,12 @@ public class ArrayStuff{
 		return maxValue;
 	}
 
-	public static int frequency(int i) {
+	public static int frequency(int i , int[] array) {
 
 		int loc = array[i];
 		int counter = 0;
 
-		for (int a = 0 ; a < array.length() ; a++) {
+		for (int a = 0 ; a < array.length ; a++) {
 			if (array[a] == loc) {
 				counter ++;
 			}
@@ -155,12 +157,13 @@ public class ArrayStuff{
 			}
 
 			if (sum1 == sum2) {
-				return true;
+				return true; 
 			}
 		}
 		
 		return false;
 	}
+
 
 	public static int[] seriesUp(int degree) {
 
@@ -179,12 +182,94 @@ public class ArrayStuff{
 		return result;
 	}
 
-	public static void main(String[] args) {
+	public static int maxMirror(int[] nums) {
 
-		ArrayStuff as = new ArrayStuff();
+		boolean ok = true;
+
+		if (Arrays.equals(nums,MirrorGen(nums))) {
+			return nums.length;
+		}
+
+		for (int i = 0 ; i < nums.length ; i++) { // possible maxSize
+			
+			for (int j = 0 ; j < nums.length - i ; j++) { // Checking each position to see if it fits the possible maxSize
+				
+				int[] testing = Arrays.copyOfRange(nums, j, j + i);
+				int[] mirror = MirrorGen(testing);
+
+				System.out.println("The testing string is: " + Arrays.toString(testing));
+				System.out.println("The mirror is: " + Arrays.toString(mirror));
+
+				if (contains(nums, mirror)) {
+					ok = true;
+					break;
+				}
+
+				else {
+					ok = false;
+				}
+
+			}
+
+			if (ok) {
+				System.out.println(i + " is A-OK");
+			}
+
+			else {
+				return i - 1;
+			}
+
+		}
+
+		return nums.length - 1 ; // Debugging reason only
+	}
+
+	public static int[] MirrorGen(int[] array) { // generates the mirror array
+
+		int[] mirror = new int[array.length];
+
+		for (int i = 0 ; i < array.length ; i++) {
+			mirror[array.length - 1 - i] = array[i];
+		}
+
+		return mirror;
+
+	}
+
+	public static boolean contains(int[] array1, int[] array2) { // Checks if array1 contains array2
 		
-		System.out.println(as.array);
-		System.out.println(as.find(100));
-		System.out.println(as.maxVal());
+		int[] empty = {};
+
+		if (Arrays.equals(array2,empty)) { // everything contains the empty array
+			return true;
+		}
+
+		else if (Arrays.equals(array1,array2)) {
+			return true;
+		}
+
+		for (int i = 0 ; i < array1.length - array2.length ; i++) {
+			
+			if (Arrays.equals(Arrays.copyOfRange(array1, i , i + array2.length), array2)) {
+				
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public static void main(String[] args) {
+		
+		int[] a = {} , b = {1} , c = {1,2,3,4,3,2,1} , d = {21,22,9,8,7,6,23,24,6,7,8,9,25,7,8,9}, e = {1,2,1,4};
+		
+		//System.out.println(array);
+		//System.out.println(find(100));
+		//System.out.println(as.maxVal());
+		System.out.println("a: " + maxMirror(a));
+		System.out.println("b: " + maxMirror(b));
+		System.out.println("c: " + maxMirror(c));
+		System.out.println("d: " + maxMirror(d));
+		System.out.println("e: " + maxMirror(e));
 	}
 }
