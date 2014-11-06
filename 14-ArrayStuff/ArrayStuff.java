@@ -26,11 +26,25 @@ public class ArrayStuff{
 
 	}
 
-	public int maxVal() {
+	public int maxValId(int[] array) {
 
-		int maxValue = array[0];
+		int maxValue = 0;
 
-		for(int i = 0 ; i < 100 ; i++) {
+		for(int i = 0 ; i < array.length ; i++) {
+
+			if (array[i] > maxValue) {
+				maxValue = i;
+			}
+		}
+
+		return maxValue;
+	}
+
+	public int maxVal(int[] array) {
+
+		int maxValue = 0;
+
+		for(int i = 0 ; i < array.length ; i++) {
 
 			if (array[i] > maxValue) {
 				maxValue = array[i];
@@ -39,6 +53,7 @@ public class ArrayStuff{
 
 		return maxValue;
 	}
+
 
 	public static int frequency(int i , int[] array) {
 
@@ -257,6 +272,30 @@ public class ArrayStuff{
 		}
 
 		return false;
+	}
+
+	public static int mode(int[] num) {
+		int[] freq = new int[num.length];
+
+		for (i = 0 ; i < num.length ; i++) {
+			freq[i] = frequency(num[i], num);
+		}
+
+		a = maxValId(freq);
+
+		return num[a];
+	}
+
+	public static int mode2(int[] nums){
+
+		int holder = new int[maxVal(nums)];
+
+		for (i = 0 ; i < num.length ; i++) {
+			holder[i] = holder[i] + 1;
+		}
+
+		return maxValId(holder);
+		
 	}
 
 	public static void main(String[] args) {
