@@ -8,12 +8,17 @@ public class Sarray{
 
 	public Sarray() {
 		data = new int[1000];
-		last = 0;
+		last = 0; // Index of last element != 0
+	}
+
+	public Sarray(int[] Ndata) {
+		data = Ndata;
+		last = Ndata.length;
 	}
 
 	private static find(int n, int[] array) {
 		
-		for(int i = 0 ; i < array.length ; i++) {
+		for(int i = 0 ; i < last ; i++) {
 
 			if (array[i] == n) {
 				return i;
@@ -47,6 +52,8 @@ public class Sarray{
 			data[data.length - 1] = i;
 		}
 
+		last++;
+
 		return true;
 	}
 
@@ -59,9 +66,6 @@ public class Sarray{
 			}
 			
 			data[index] = i;
-
-			return;
-
 		}
 
 		else {
@@ -73,12 +77,55 @@ public class Sarray{
 
 			data[index] = i;
 
-			return;
-
 		}
+		
+		last++;
+
+		return;
 	}
 
 	public int size() {
-			
+
+		return last + 1; // last marks the last index, everything before it (0 index) included represent the size of the list
+	}
+
+	public int get(int index) {
+
+		if (index > last) {
+			return -1; // 0's should mark empty space
+		}
+
+		else {
+			return data[index];
+		}
+	}
+
+	public int set(int index, int i) {
+
+		if (index > data.length) {
+			expand(index - data.length);
+			last = index;
+			data[last] = i;
+			return -1; // Means one needed to expand the data
+		}
+
+		else {
+			int temp = data[index];
+			data[index] = i;
+			return temp;
+		}
+	}
+
+	public int remove(int index) {
+		int temp = data[index];
+
+		for (int i = index + 1; i <= last ; i++) {
+			data[i] = data[i - 1];
+		}
+
+		data[last] = 0;
+		last--;
+
+		return temp;
 	}
 }
