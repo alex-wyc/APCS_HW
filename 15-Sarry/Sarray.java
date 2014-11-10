@@ -84,6 +84,34 @@ public class Sarray{
 		return;
 	}
 
+	public void addChunk(int[] chunk, int index) {
+
+		if (last < data.length - chuck.length - 1) {
+
+			for (int i = last ; i >= index ; i--) {
+				data[i+1] = data[i];
+			}
+
+			for (int a = index ; a < chunk ; a++) {
+				data[a] = chunk[a];
+			}
+		}
+
+		else {
+			expand(chunk.length);
+		
+			for (int i = last ; i >= index ; i--) {
+				data[i+1] = data[i];
+			}
+
+			for (int a = index ; a < chunk ; a++) {
+				data[a] = chunk[a];
+			}
+		}
+
+		return;
+	}
+
 	public int size() {
 
 		return last + 1; // last marks the last index, everything before it (0 index) included represent the size of the list
