@@ -1,5 +1,5 @@
-import java.util.*
-import java.io.*
+import java.util.*;
+import java.io.*;
 
 public class Sarray{
 
@@ -16,7 +16,7 @@ public class Sarray{
 		last = Ndata.length;
 	}
 
-	private static find(int n, int[] array) {
+	private int find(int n, int[] array) {
 		
 		for(int i = 0 ; i < last ; i++) {
 
@@ -29,12 +29,12 @@ public class Sarray{
 
 	}
 
-	private static expand(int size) {
+	private void expand(int size) {
 
 		int[] temp = new int[data.length + size];
 			
-		for (int a = 0; i < data.length ; a++) {
-			temp[i] = data[i];
+		for (int a = 0; a < data.length ; a++) {
+			temp[a] = data[a];
 		}
 
 		data = temp;

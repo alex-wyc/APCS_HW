@@ -13,9 +13,9 @@ public class ArrayStuff{
 		}
 	}
 
-	public int find(int n) {
+	public int find(int n, int[] array) {
 		
-		for(int i = 0 ; i < 100 ; i++) {
+		for(int i = 0 ; i < array.length ; i++) {
 
 			if (array[i] == n) {
 				return i;
