@@ -86,13 +86,13 @@ public class Sarray{
 
 	public void addChunk(int[] chunk, int index) {
 
-		if (last < data.length - chuck.length - 1) {
+		if (last < data.length - chunk.length - 1) {
 
 			for (int i = last ; i >= index ; i--) {
 				data[i+1] = data[i];
 			}
 
-			for (int a = index ; a < chunk ; a++) {
+			for (int a = index ; a < chunk.length ; a++) {
 				data[a] = chunk[a];
 			}
 		}
@@ -104,7 +104,7 @@ public class Sarray{
 				data[i+1] = data[i];
 			}
 
-			for (int a = index ; a < chunk ; a++) {
+			for (int a = index ; a < chunk.length ; a++) {
 				data[a] = chunk[a];
 			}
 		}

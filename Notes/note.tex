@@ -825,5 +825,85 @@ do have to declare a new instance of the class within itself.
 
 Final variables are variables whose values cannot be cahnged. For example
 <array>.length() is a final variable. These variables can be used but
-cannot be assigned or changed. 
+cannot be assigned or changed.
+
+\section{2014-11-10}
+
+\subsection{Exception Handeling}
+
+
+In java, error are known as exceptions. When exceptions occur, they crash the program
+and and returns an exception debugging message. However, we can create our own exception
+handeling mechanism. Note that each exception is a class and can be called throughout the
+program, as seen below:
+
+
+\begin{lstlisting}[language=java]
+public EE {
+	public void etest(int i) {
+		if (i > 10) {
+
+			throw new ArithmeticException();
+		}
+	}
+}
+
+// New Class!
+
+public Driver {
+
+	public static void main(String[] args) {
+		EE ee = new EE();
+	}
+
+	System.out.println("Before the test");
+
+	EE.etest(1);
+	EE.etest(11);
+
+	System.out.println("After the test");
+}
+\end{lstlisting}
+
+
+Note how EE.etest(11); crashed the program with the ArithmeticException.
+
+
+However, we can make the error message more useful by using a try-catch block. This
+construct will stop the program as soon as an error occurs and pause the program. The
+syntax of class Driver is as follows:
+
+
+\begin{lstlisting}[language=java]
+public Driver {
+
+	public static void main(String[] args) {
+		EE ee = new EE();
+	}
+
+	System.out.println("Before the test");
+
+	try {
+		ee.etest(11);
+		System.out.println("etest has been run");
+	}
+
+	catch (Exception e) {
+		System.out.println("etest crashed with Error: " + e);
+	}
+
+	System.out.println("After the test");
+}
+\end{lstlisting}
+
+Note that catch prevents crashing of the program, instead it just send an
+error message. Also note that the "Exception e" parameter can be replaced
+by any specific error class such as ArrayIndexOutOfBoundsException or 
+ArithmeticException, etc. It is also possible to stack a few catch phrases
+one after another to expect multiple types of errors.
+
+
+It is important to note that try-catch construct should NOT be used to conceal
+errors from crashing the program. It should be used for cases in which java's
+compiler is being dumb, and gives error for things that can be fixed.
 \end{document}
