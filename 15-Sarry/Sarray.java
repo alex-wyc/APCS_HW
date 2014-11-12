@@ -31,6 +31,10 @@ public class Sarray{
 
 	private void expand(int size) {
 
+		throw new ArrayIndexOutOfBoundsException(); // Expand, but just tell the user it's out-of-bounds
+		/*
+		I lied, throw terminates the thing
+
 		int[] temp = new int[data.length + size];
 			
 		for (int a = 0; a < data.length ; a++) {
@@ -38,6 +42,7 @@ public class Sarray{
 		}
 
 		data = temp;
+		*/
 	}
 
 
