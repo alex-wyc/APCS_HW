@@ -4,7 +4,7 @@ import java.io.*;
 public class Driver{
 
 	public static void main(String[] args) {
-		
+		/*
 		ArrayList<Integer> AL = new ArrayList<Integer>();
 
 		Random randgen = new Random();
@@ -47,5 +47,11 @@ public class Driver{
 		System.out.println();
 
 		return;
+		*/
+		
+		AL blah = new AL(10);
+		System.out.println(blah.get().toString());
+		blah.Randomize();
+		System.out.println(blah.get().toString());
 	}
 }
