@@ -4,6 +4,26 @@ import java.io.*;
 public class Driver{
 
 	public static void main(String[] args) {
+
+		// Funny thing, when ran together it also takes approx. 0.060s
+
+		System.out.println("ARRAYLIST");
+		// Runtime = approx. 0.060s with 1.6 GHz Processor
+
+		AL blah = new AL(10);
+		System.out.println(blah.get().toString());
+		blah.Randomize();
+		System.out.println(blah.get().toString());
+
+		System.out.println("ARRAYS");
+		// Runtime = approx. 0.060s with 1.6 GHz Processor
+		
+		ArrayRandom AR = new ArrayRandom(10);
+		System.out.println(Arrays.toString(AR.get()));
+		AR.Randomize();
+		System.out.println(Arrays.toString(AR.get()));
+
+		
 		/*
 		ArrayList<Integer> AL = new ArrayList<Integer>();
 
@@ -48,10 +68,5 @@ public class Driver{
 
 		return;
 		*/
-		
-		AL blah = new AL(10);
-		System.out.println(blah.get().toString());
-		blah.Randomize();
-		System.out.println(blah.get().toString());
 	}
 }
