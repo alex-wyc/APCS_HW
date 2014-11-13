@@ -12,7 +12,7 @@ public class Driver{
 		//System.out.println(AL.size());
 		//try {
 		for (int i = 0 ; i < 20 ; i++) {
-			AL.add(randgen.nextInt(21));
+			AL.add(randgen.nextInt(5));
 		}
 		//}
 		//catch (Exception e) {
@@ -32,6 +32,7 @@ public class Driver{
 		for (int i = 1 ; i < AL.size() ; i++) {
 			if (AL.get(i) == temp) {
 				AL.remove(i);
+				i--;
 			}
 			else {
 				temp = AL.get(i);
