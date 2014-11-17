@@ -383,4 +383,14 @@ xc9\textbackslash xb0\textbackslash x0b\textbackslash xcd\textbackslash x80" + &
 \newline
 \newline
 That should give you a shell!
+
+
+\subsection{What the Flag -- Cookies}
+
+
+This problem *tries* to prevent buffer overflow by the use of cookies, or canaries. These
+things work by inserting certain set buffer values within different parts of the stack. And
+when the program is executed, it will check the cookies values after each action to see
+if they have been changed (probably due to a buffer overflow). If they have, the cookies 
+ceashes the program. The way to get around this is to see 
 \end{document}
