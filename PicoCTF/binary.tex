@@ -388,9 +388,20 @@ That should give you a shell!
 \subsection{What the Flag -- Cookies}
 
 
+There are twho things you need to know to solve the problem. You need to overflow the buffer
+yet enterthe correct password. To do so we have to understand how get() and strcmp() works
+at the binary level. At the binary level, real data don't always fill up their allocated
+memory, so the system padds the memory with null bytes. These null bytes are NOT taken into
+consideration when comparing values using strcmp() or similar functions. Therefore the trick
+is the pad the password (which you know) with null bytes to overflow the buffer.
+
+
 This problem *tries* to prevent buffer overflow by the use of cookies, or canaries. These
 things work by inserting certain set buffer values within different parts of the stack. And
 when the program is executed, it will check the cookies values after each action to see
 if they have been changed (probably due to a buffer overflow). If they have, the cookies 
-ceashes the program. The way to get around this is to see 
+ceashes the program. The way to get around this is to find the cookies, and when entering your
+payload, make sure to rewrite the cookie location with what it should be. In the case of this
+problem, we can easily see the value of the cookie via that interactive solver thing. But just
+for fun, let's try to find it ourselves.
 \end{document}
