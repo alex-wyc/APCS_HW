@@ -10,6 +10,6 @@ public class Collection{
 	}
 
 	public boolean Overlap (Interval a, Interval b) {
-		return !(a.getHigh() <= b.getLow() || b.getHigh() <= a.getLow());
+		return !(a.getHigh() < b.getLow() || b.getHigh() < a.getLow());
 	}
 }
