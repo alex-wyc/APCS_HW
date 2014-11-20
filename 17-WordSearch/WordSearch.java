@@ -8,7 +8,7 @@ public class WordSearch {
 	private String[] wordList;
 	private Random randgen = new Random();
 
-	public CrossWord(int len, int width) {
+	public WordSearch(int len, int width) {
 		
 		board = new char[len][width];
 		loadWords();
@@ -17,7 +17,7 @@ public class WordSearch {
 	
 	}
 
-	public CrossWord() {
+	public WordSearch() {
 
 		board = new char[10][10];
 		loadWords();
