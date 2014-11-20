@@ -13,7 +13,7 @@ public class Driver{
 
 		// Case 1: a a b b
 		Interval a = new Interval(0,1);
-		Interval b = new Interval(2,3);
+		Interval b = new Interval(1,3);
 		System.out.println(Overlap(a,b)); // Returns false, check
 
 		// Case 2: a b a b
@@ -43,7 +43,7 @@ public class Driver{
 	}
 
 	public static boolean Overlap (Interval a, Interval b) {
-		return !(a.getHigh() <= b.getLow() || b.getHigh() <= a.getLow());
+		return !(a.getHigh() < b.getLow() || b.getHigh() < a.getLow()); // problem => less than or greater than, NO EQUAL SIGNS HERE
 	}
 
 }
