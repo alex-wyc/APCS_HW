@@ -4,6 +4,7 @@ import java.io.*;
 public class WordSearch {
 	
 	private char[][] board;
+	private char[][] key;
 	private ArrayList<String> AllEnglishWords = new ArrayList<String>();
 	private String[] wordList;
 	private Random randgen = new Random();
@@ -11,6 +12,7 @@ public class WordSearch {
 	public WordSearch(int len, int width) {
 		
 		board = new char[len][width];
+		key = new char[len][width];
 		loadWords();
 		genWordList((randgen.nextInt(5) - 2) + len * width * 3 / (100)); // Decent amount of real words, 3/5 of the board should contain legit letters, average word length = approx. 5. +/- 2 word count jff
 		fillBoard(); // TO BE IMPLEMENTED LATER
@@ -20,6 +22,7 @@ public class WordSearch {
 	public WordSearch() {
 
 		board = new char[10][10];
+		key = new char[10][10];
 		loadWords();
 		genWordList(3 + (randgen.nextInt(5) - 2)); // Refer to ln 10
 		fillBoard();
@@ -37,16 +40,69 @@ public class WordSearch {
 
 		for (int i = 0 ; i < board.length ; i++) {
 			for (int a = 0 ; a < board[i].length ; a++) {
-				str = str + board[i][a];
+				str = str + board[i][a] + " ";
 			}
 
-			str = str + "\n";
+			str = str + "\n\n";
 		}
 
 		str = str + "\nWord Bank:\n";
 		str = str + Arrays.toString(wordList);
 
 		return str;
+	}
+
+	public void writeBoard(String path){
+		
+		try {
+			PrintWriter writer = new PrintWriter(path, "UTF-8");
+			String line = "";
+
+			for (int i = 0 ; i < board.length ; i++) {
+				for (int a = 0 ; a < board[i].length ; a++) {
+					line = line + board[i][a] + " ";
+				}
+				line = line + "\n";
+				writer.println(line);
+				line = "";
+			}
+
+			writer.println("\nWord Bank:\n");
+			writer.println(Arrays.toString(wordList));
+
+			writer.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Invalid Path!");
+		} catch (IOException e) {
+			System.out.println("Program crashed while writing");
+		}
+	}
+
+	public void writeKey(String path){
+
+		try {
+			PrintWriter writer = new PrintWriter(path, "UTF-8");
+			String line = "";
+
+			for (int i = 0 ; i < key.length ; i++) {
+				for (int a = 0 ; a < key[i].length ; a++) {
+					line = line + key[i][a] + " ";
+				}
+				line = line + "\n";
+				writer.println(line);
+				line = "";
+			}
+
+			writer.println("\nWord Bank:\n");
+			writer.println(Arrays.toString(wordList));
+
+			writer.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Invalid Path!");
+		} catch (IOException e) {
+			System.out.println("Program crashed while writing");
+		}
+
 	}
 	/**
 	<h3>loadWords Method</h3>
@@ -300,6 +356,21 @@ public class WordSearch {
 					break;
 			}
 		}
+
+		// Key generation
+
+		for (int i = 0 ; i < board.length ; i++) {
+			for (int a = 0 ; a < board[0].length ; a++) {
+				if (board[i][a] == 0) {
+					key[i][a] = '.';
+				}
+				else {
+					key[i][a] = board[i][a];
+				}
+			}
+		}
+
+		// Fill with random letters
 
 		for (int i = 0 ; i < board.length ; i++){
 			for (int a = 0 ; a < board[0].length ; a++) {
