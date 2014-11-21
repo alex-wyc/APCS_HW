@@ -33,7 +33,7 @@ public class Driver {
 			System.exit(1);
 		}
 */
-		WordSearch ws = new WordSearch(height,width);
+		WordSear ws = new WordSear(height,width);
 		System.out.println(ws.ToString());
 
 		if (!(boardPath.equals(""))) {
