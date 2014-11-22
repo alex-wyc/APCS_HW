@@ -57,62 +57,6 @@ public class WordSearch {
 		return str;
 	}
 
-	public void writeBoard(String path){
-		
-		try {
-			PrintWriter writer = new PrintWriter(path, "UTF-8");
-			String line = "";
-
-			for (int i = 0 ; i < board.length ; i++) {
-				for (int a = 0 ; a < board[i].length ; a++) {
-					line = line + board[i][a] + " ";
-				}
-				line = line + "\n";
-				writer.println(line);
-				line = "";
-			}
-
-			writer.println("\nWord Bank:\n");
-			writer.println(Arrays.toString(wordList));
-
-			writer.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("Invalid Path!");
-			System.exit(0);
-		} catch (IOException e) {
-			System.out.println("Program crashed while writing");
-			System.exit(0);
-		}
-	}
-
-	public void writeKey(String path){
-
-		try {
-			PrintWriter writer = new PrintWriter(path, "UTF-8");
-			String line = "";
-
-			for (int i = 0 ; i < key.length ; i++) {
-				for (int a = 0 ; a < key[i].length ; a++) {
-					line = line + key[i][a] + " ";
-				}
-				line = line + "\n";
-				writer.println(line);
-				line = "";
-			}
-
-			writer.println("\nWord Bank:\n");
-			writer.println(Arrays.toString(wordList));
-
-			writer.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("Invalid Path!");
-			System.exit(0);
-		} catch (IOException e) {
-			System.out.println("Program crashed while writing");
-			System.exit(0);
-		}
-
-	}
 	/*
 	Intake = none
 	Output = none
@@ -384,5 +328,62 @@ public class WordSearch {
 				}
 			}
 		}
+	}
+
+	public void writeBoard(String path){
+		
+		try {
+			PrintWriter writer = new PrintWriter(path, "UTF-8");
+			String line = "";
+
+			for (int i = 0 ; i < board.length ; i++) {
+				for (int a = 0 ; a < board[i].length ; a++) {
+					line = line + board[i][a] + " ";
+				}
+				line = line + "\n";
+				writer.println(line);
+				line = "";
+			}
+
+			writer.println("\nWord Bank:\n");
+			writer.println(Arrays.toString(wordList));
+
+			writer.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Invalid Path!");
+			System.exit(0);
+		} catch (IOException e) {
+			System.out.println("Program crashed while writing");
+			System.exit(0);
+		}
+	}
+
+	public void writeKey(String path){
+
+		try {
+			PrintWriter writer = new PrintWriter(path, "UTF-8");
+			String line = "";
+
+			for (int i = 0 ; i < key.length ; i++) {
+				for (int a = 0 ; a < key[i].length ; a++) {
+					line = line + key[i][a] + " ";
+				}
+				line = line + "\n";
+				writer.println(line);
+				line = "";
+			}
+
+			writer.println("\nWord Bank:\n");
+			writer.println(Arrays.toString(wordList));
+
+			writer.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Invalid Path!");
+			System.exit(0);
+		} catch (IOException e) {
+			System.out.println("Program crashed while writing");
+			System.exit(0);
+		}
+
 	}
 }
