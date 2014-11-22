@@ -1,0 +1,16 @@
+hello
+dog
+cat
+fish
+tiger
+memory
+java
+c
+python
+php
+ruby
+nightmare
+nethack
+dagger
+spear
+english
