@@ -65,21 +65,27 @@ public class WordSearch {
 
 	private void loadWords(String path){
 
+		BufferedReader br = null;
+
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(path));
-			String line;
+			br = new BufferedReader(new FileReader(path));
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found!!");
+			System.exit(0);
+		} 
+		String line = "";
+
+		try {
+
 			while ((line = br.readLine()) != null) {
 				if (isAllLowerCase(line) && line.length() < board.length && line.length() < board[0].length) {
 					AllEnglishWords.add(line);
 				}
 			}
-
 			br.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found!!");
-			System.exit(0);
+
 		} catch (IOException E) {
-			System.out.println("Program crashed while reading file");
+			System.out.println("Program crashed while reading line: " + line);
 			System.exit(0);
 		}
 	}
@@ -332,58 +338,68 @@ public class WordSearch {
 
 	public void writeBoard(String path){
 		
+		PrintWriter writer = null;
+
 		try {
-			PrintWriter writer = new PrintWriter(path, "UTF-8");
-			String line = "";
-
-			for (int i = 0 ; i < board.length ; i++) {
-				for (int a = 0 ; a < board[i].length ; a++) {
-					line = line + board[i][a] + " ";
-				}
-				line = line + "\n";
-				writer.println(line);
-				line = "";
-			}
-
-			writer.println("\nWord Bank:\n");
-			writer.println(Arrays.toString(wordList));
-
-			writer.close();
+			writer = new PrintWriter(path, "UTF-8");
 		} catch (FileNotFoundException e) {
 			System.out.println("Invalid Path!");
 			System.exit(0);
-		} catch (IOException e) {
-			System.out.println("Program crashed while writing");
+		} catch (UnsupportedEncodingException e) {
+			System.out.println("Unsupported Encoding!");
 			System.exit(0);
 		}
+		
+		String line = "";
+
+		for (int i = 0 ; i < board.length ; i++) {
+			for (int a = 0 ; a < board[i].length ; a++) {
+				line = line + board[i][a] + " ";
+			}
+			line = line + "\n";
+
+			writer.println(line);
+
+			line = "";
+		}
+
+		writer.println("\nWord Bank:\n");
+		writer.println(Arrays.toString(wordList));
+
+		writer.close();
+
 	}
 
 	public void writeKey(String path){
 
+		PrintWriter writer = null;
+
 		try {
-			PrintWriter writer = new PrintWriter(path, "UTF-8");
-			String line = "";
-
-			for (int i = 0 ; i < key.length ; i++) {
-				for (int a = 0 ; a < key[i].length ; a++) {
-					line = line + key[i][a] + " ";
-				}
-				line = line + "\n";
-				writer.println(line);
-				line = "";
-			}
-
-			writer.println("\nWord Bank:\n");
-			writer.println(Arrays.toString(wordList));
-
-			writer.close();
+			writer = new PrintWriter(path, "UTF-8");
 		} catch (FileNotFoundException e) {
 			System.out.println("Invalid Path!");
 			System.exit(0);
-		} catch (IOException e) {
-			System.out.println("Program crashed while writing");
+		} catch (UnsupportedEncodingException e) {
+			System.out.println("Unsupported Encoding!");
 			System.exit(0);
 		}
+		
+		String line = "";
 
+		for (int i = 0 ; i < key.length ; i++) {
+			for (int a = 0 ; a < key[i].length ; a++) {
+				line = line + key[i][a] + " ";
+			}
+			line = line + "\n";
+
+			writer.println(line);
+
+			line = "";
+		}
+
+		writer.println("\nWord Bank:\n");
+		writer.println(Arrays.toString(wordList));
+
+		writer.close();
 	}
 }
