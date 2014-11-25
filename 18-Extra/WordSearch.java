@@ -109,12 +109,7 @@ public class WordSearch {
 		int counter = 0;
 
 		while (!line.equals("END_OF_TRANSMISSION")) {
-
-			if (counter == wordList.length) {
-				System.out.println("You've done enough!");
-				break;
-			}
-
+		
 			if (line.equals("END_OF_TRANSMISSION")) {
 				break;
 			}
@@ -128,6 +123,10 @@ public class WordSearch {
 			else if (isAllLowerCase(line) && line.length() < board.length && line.length() < board[0].length) {
 				wordList[counter] = line;
 				counter++;
+				if (counter == wordList.length) {
+					System.out.println("You've done enough!");
+					break;
+				}
 			}
 
 			else {
