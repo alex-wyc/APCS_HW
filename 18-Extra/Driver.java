@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.io.*;
 
 public class Driver {
 
@@ -8,8 +9,17 @@ public class Driver {
 			Usage();
 		}
 
-		int height = Integer.parseInt(args[0]);
-		int width = Integer.parseInt(args[1]);
+		int height = 0;
+		int width = 0;
+
+		try {
+			height = Integer.parseInt(args[0]);
+			width = Integer.parseInt(args[1]);
+		} catch (NumberFormatException e) {
+			System.out.println("Please enter legitmate numbers for height and width!");
+			System.exit(0);
+		}
+
 		String boardPath = "";
 		String keyPath = "";
 		String dictPath = "/usr/share/dict/words"; // Default path
