@@ -24,5 +24,13 @@ public class Driver{
 		SAD.add(10.4);
 		System.out.println(SAD.toString());
 		
+		OrderedSarray<Integer> OSAI = new OrderedSarray<Integer>();
+
+		OSAI.add(10);
+		OSAI.add(5);
+		OSAI.add(18);
+		OSAI.add(13);
+
+		System.out.println(OSAI.toString());
 		}
 }

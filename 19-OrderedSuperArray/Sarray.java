@@ -3,8 +3,8 @@ import java.io.*;
 
 public class Sarray<T>{
 
-	private T[] data;
-	private int last;
+	public T[] data;
+	public int last;
 
 	public Sarray() {
 		data = (T[])(new Object[1000]);
