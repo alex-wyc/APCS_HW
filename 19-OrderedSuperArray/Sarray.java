@@ -75,7 +75,7 @@ public class Sarray<T>{
 		if (last < data.length - 2) {
 			
 			for (int a = last ; a >= index ; a--) {
-				data[a + 1] = data[a];
+				data[a+1] = data[a];
 			}
 			
 			data[index] = i;
@@ -85,7 +85,7 @@ public class Sarray<T>{
 			expand(1);
 			
 			for (int a = last ; a >= index ; a--) {
-				data[a + 1] = data[a];
+				data[a+1] = data[a];
 			}
 
 			data[index] = i;

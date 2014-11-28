@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class OrderedSarray<T> extends Sarray<T> {
+public class OrderedSarray<T extends Object & Comparable> extends Sarray<T> {
 
 	public OrderedSarray() {
 		super();
@@ -9,8 +9,8 @@ public class OrderedSarray<T> extends Sarray<T> {
 
 	public boolean add(T element) {
 
-		for (int i = 0 ; i < last ; i++) {
-			if (data[i] >= element) {
+		for (int i = 0 ; i <= last ; i++) {
+			if (data[i].compareTo(element) >= 0) {
 				super.add(i,element);
 				return true;
 			}
@@ -21,6 +21,6 @@ public class OrderedSarray<T> extends Sarray<T> {
 	}
 
 	public void add(int index, T i) {
-		add(i);
+		this.add(i);
 	}
 }
