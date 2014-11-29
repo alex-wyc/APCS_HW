@@ -24,6 +24,7 @@ public class Driver {
 		String keyPath = "";
 		String dictPath = "/usr/share/dict/words"; // Default path
 		boolean willScan = Arrays.asList(args).contains("-s");
+		boolean interactive = Arrays.asList(args).contains("-I");
 
 		for (int i = 2 ; i < args.length ; i++) {
 			if (args[i].equals("-b")) {
@@ -56,8 +57,6 @@ public class Driver {
 		}
 */
 		WordSearch ws = new WordSearch(height,width,willScan,dictPath);
-		
-		System.out.println(ws.ToString());
 
 		if (!(boardPath.equals(""))) {
 			ws.writeBoard(boardPath);
@@ -65,6 +64,15 @@ public class Driver {
 
 		if (!(keyPath.equals(""))) {
 			ws.writeKey(keyPath);
+		}
+
+		if (interactive) {
+			InteractiveSolver IS = new InteractiveSolver(ws.getBoard(),ws.getWordList());
+	
+			IS.Solve();
+		}
+		else {
+			System.out.println(ws.ToString());
 		}
 
 	}
@@ -76,6 +84,7 @@ public class Driver {
 		System.out.println("\t\t-k [solution plain text file output path]");
 		System.out.println("\t\t-f [path to the dictionary file seperated by newlines]");
 		System.out.println("\t\t-s scan word from user");
+		System.out.println("\t\t-I launch an interactive solver for the generated word search");
 		System.exit(0);
 	}
 /*
