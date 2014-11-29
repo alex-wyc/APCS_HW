@@ -10,6 +10,8 @@ import java.io.UnsupportedEncodingException;
 import java.io.FileNotFoundException;
 
 public class WordSearch {
+
+	// INSTANCE VARIABLES
 	
 	private char[][] board;
 	private char[][] key;
@@ -19,6 +21,8 @@ public class WordSearch {
 	private final String wordDistribution = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbccccccccccccccccccccccccccccdddddddddddddddddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeffffffffffffffffffffffgggggggggggggggggggghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiijjkkkkkkkkllllllllllllllllllllllllllllllllllllllllmmmmmmmmmmmmmmmmmmmmmmmmnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooopppppppppppppppppppqrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttuuuuuuuuuuuuuuuuuuuuuuuuuuuuvvvvvvvvvvwwwwwwwwwwwwwwwwwwwwwwwwxxyyyyyyyyyyyyyyyyyyyyz";
 
 	// Real representation from http://en.wikipedia.org/wiki/Letter_frequency
+
+	// CONSTRUCTORS
 
 	public WordSearch(int len, int width, boolean willScan, String dictPath) {
 		
@@ -34,14 +38,16 @@ public class WordSearch {
 			loadWords(dictPath);
 			genWordList(); // Decent amount of real words, 3/5 of the board should contain legit letters, average word length = approx. 5. +/- 2 word count jff
 		}
-		fillBoard(); // TO BE IMPLEMENTED LATER
+		fillBoard();
 	
 	}
 
 	public WordSearch() {
 
-		this(10,10,false,"/usr/share/dict/words");
+		this(20,20,false,"/usr/share/dict/words");
 	}
+
+	// FUNCTIONS
 
 	/*
 	Returns a string containing the entire board and wordbank, intake = none.
@@ -63,6 +69,14 @@ public class WordSearch {
 		str = str + Arrays.toString(wordList);
 
 		return str;
+	}
+
+	public char[][] getBoard() {
+		return board;
+	}
+
+	public String[] getWordList() {
+		return wordList;
 	}
 
 	/*
@@ -133,7 +147,7 @@ public class WordSearch {
 				System.out.println("INVALID WORD!!");
 			}
 
-			System.out.print("> ");
+			System.out.print(">>> ");
 			line = sc.nextLine();
 		}
 
