@@ -175,15 +175,29 @@ public class Sarray<T extends Object & Comparable>{
 	
 	public void isort() {
 		for (int i = 1 ; i <= last ; i++){ // Sorting index
-			T newVal = data[last];
+			T newVal = data[i];
 			int a;
-			for (a = last ; a > i ; a--) {
-				data[a] = data[a-1];
-			}
 			for (a = i ; a > 0 && newVal.compareTo(data[a - 1]) < 0 ; a--) {
 				data[a] = data[a-1];
 			}
 			data[a] = newVal;
+		}
+	}
+
+	public void ssort() {
+		T minValue;
+		int minIndex = 0;
+		for (int i = 0 ; i <= last ; i++) {
+			minValue = data[i];
+			minIndex = i;
+			for (int a = i ; a <= last; a++) {
+				if (data[a].compareTo(minValue) <= 0) {
+					minValue = data[a];
+					minIndex = a;
+				}
+			}
+			data[minIndex] = data[i];
+			data[i] = minValue;
 		}
 	}
 

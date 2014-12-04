@@ -33,7 +33,8 @@ public class Driver{
 		SAI.add(6);
 
 		System.out.println(SAI.toString());
-		SAI.isort();
+		//SAI.isort();
+		SAI.ssort();
 		System.out.println(SAI.toString());
 		
 		SAD.add(10.1);
