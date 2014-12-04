@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Driver{
 
 	public static void main(String[] args) {
@@ -16,10 +18,22 @@ public class Driver{
 		SAS.add(0,"NEW");
 		SAS.add(1,"ONE");
 		System.out.println(SAS.toString());
+		SAS.isort();
+		System.out.println(SAS.toString());
 		
-		SAI.add(10);
+		//Random randgen = new Random();
+		//for (int i = 0 ; i < Integer.parseInt(args[0]) ; i++) {
+		//	SAI.add(randgen.nextInt(Integer.parseInt(args[1])));
+		//}
+
 		SAI.add(20);
-		SAI.add(30);
+		SAI.add(10);
+		SAI.add(5);
+		SAI.add(7);
+		SAI.add(6);
+
+		System.out.println(SAI.toString());
+		SAI.isort();
 		System.out.println(SAI.toString());
 		
 		SAD.add(10.1);

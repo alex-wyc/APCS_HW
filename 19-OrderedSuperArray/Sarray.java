@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Sarray<T>{
+public class Sarray<T extends Object & Comparable>{
 
 	public T[] data;
 	public int last;
@@ -172,4 +172,72 @@ public class Sarray<T>{
 
 		return temp;
 	}
+	
+	public void isort() {
+		for (int i = 1 ; i <= last ; i++){ // Sorting index
+			T newVal = data[last];
+			int a;
+			for (a = last ; a > i ; a--) {
+				data[a] = data[a-1];
+			}
+			for (a = i ; a > 0 && newVal.compareTo(data[a - 1]) < 0 ; a--) {
+				data[a] = data[a-1];
+			}
+			data[a] = newVal;
+		}
+	}
+
+	/*
+
+	private void mergeSort() {
+		if (data.length % 2 != 0) {
+			expand(1);
+		}
+
+		T[] superCollection = (T[])(new Object[data.length / 2]);
+
+		for (int i = 0 ; i < superCollection.length ; i++) {
+			dataIndex = 2*i;
+			superCollection[i] = Arrays.copyOfRange(data,dataIndex,dataIndex + 2);
+		}
+		
+		
+	}
+	
+	private T[] sortedMerge(T[] data, T[] data2) {
+		if (data.length < data2.length) {
+			T[] temp = data2;
+			data2 = data;
+			data = temp;
+		}
+
+		T[] out = (T[])(new Object[data.length + data2.length]);
+		pos = 0;
+
+		while (data2.length != 0 && data.length != 0) {
+			if (data[0] <= data2[0]) {
+				out[pos] = data[0];
+				data = Arrays.copyOfRange(data,1,data.length);
+			}
+			else {
+				out[pos] = data2[0];
+				data2 = Arrays.copyOfRange(data2,1,data2.length);
+			}
+
+			pos++;
+		}
+
+		for (int i = 0 ; i < data.length ; i++) {
+			out[pos] = data[i];
+			pos++;
+		}
+
+		for (int i = 0 ; i < data2.length ; i++) {
+			out[pos] = data2[i];
+			pos++;
+		}
+
+		return out;
+	}
+	*/
 }
