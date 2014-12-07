@@ -3,10 +3,33 @@ import java.util.Random;
 public class Driver{
 
 	public static void main(String[] args) {
-		Sarray<String> SAS = new Sarray<String>();
+		//Sarray<String> SAS = new Sarray<String>();
 		Sarray<Integer> SAI = new Sarray<Integer>();
-		Sarray<Double> SAD = new Sarray<Double>();
+		Sarray<Integer> SAI2 = new Sarray<Integer>();
+		Random randgen = new Random();
 
+		for (int i = 0 ; i < Integer.parseInt(args[0]) ; i++) {
+			int newVal = randgen.nextInt(Integer.parseInt(args[1]));
+			SAI.add(newVal);
+			SAI2.add(newVal);
+		}
+
+		System.out.println(SAI.toString());
+
+		long isortBegin = System.currentTimeMillis();
+		SAI.bsort();
+		long isortEnd = System.currentTimeMillis();
+		System.out.println(SAI.toString());
+		System.out.println("Time used for bubble sort:" + (isortEnd-isortBegin));
+
+		long ssortBegin = System.currentTimeMillis();
+		SAI2.ssort();
+		long ssortEnd = System.currentTimeMillis();
+		System.out.println(SAI2.toString());
+		System.out.println("Time used for selection sort:" + (ssortEnd-ssortBegin));
+
+		//Sarray<Double> SAD = new Sarray<Double>();
+/*
 		SAS.add("hello");
 		SAS.add("alpha");
 		SAS.add("beta");
@@ -76,5 +99,6 @@ public class Driver{
 		OSAD.add(10.234);
 		OSAD.add(4.0);
 		System.out.println(OSAD.toString());
+*/
 		}
 }

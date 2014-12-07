@@ -43,11 +43,13 @@ public class Sarray<T extends Object & Comparable>{
 		else {
 			//I lied, throw terminates the thing
 
-			T[] temp = (T[])(new Object[data.length + size]);
+			T[] temp = (T[])(new Object[data.length + 1]);
 				
 			for (int a = 0; a < data.length ; a++) {
 				temp[a] = data[a];
 			}
+
+			temp[temp.length - 1] = null;
 
 			data = temp;
 		}
@@ -198,6 +200,18 @@ public class Sarray<T extends Object & Comparable>{
 			}
 			data[minIndex] = data[i];
 			data[i] = minValue;
+		}
+	}
+
+	public void bsort() {
+		for (int i = 0 ; i <= last ; i++){
+			for (int j = i+1 ; j <= last ; j++)  {
+				if (data[i].compareTo(data[j]) >= 0) {
+					T temp = data[i];
+					data[i] = data[j];
+					data[j] = temp;
+				}
+			}
 		}
 	}
 
