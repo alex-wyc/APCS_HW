@@ -98,28 +98,21 @@ We perform two tests:
 
 The result is as follows (is = insertion sort ; ss = selection sort ; bs = bubble sort ; ts = timsort):
 
-| size | is | ss | bs | ts |
-| ---- | -- | -- | -- | -- |
-| 10 | 0 | 0 | 0 | 0.5 |
-| 100 | 1 | 1 | 2 | 0.7 |
-| 1000 | 12 | 7 | 6 | 1 |
-| 10000 | 3100 | 15450 | 29500 | 60 |
-
 | Size  	| is   	| ss    	| bs    	| ts  	|
 |-------	|------	|-------	|-------	|-----	|
 | 10    	| 0    	| 0     	| 0     	| 0.5 	|
 | 100   	| 1    	| 1     	| 2     	| 0.7 	|
 | 1000  	| 12   	| 7     	| 6     	| 1   	|
-| 10000 	| 3100 	| 15450 	| 29500 	|     	|
+| 10000 	| 3100 	| 15450 	| 29500 	| 60  	|
 
 It is clear that the order of efficiency is ts > is > ss > bs as the data size gets larger.
 
-|sample size|is|ss|bs|ts|
-|-----------|--|--|--|--|
-|10|12|7|1|6|
-|100|12|7|6|1|
-|1000|12|7|6|1|
-|10000|12|7|6|1|
+| sample size | is | ss | bs | ts |
+|----------- |-- |-- |-- |-- |
+| 10 | 12 | 7 | 1 | 6 |
+| 100 | 12 | 7 | 6 | 1 |
+| 1000 | 12 | 7 | 6 | 1 |
+| 10000 | 12 | 7 | 6 | 1 |
 
 It seems like randomness (at least at this level) doesn't change the result that much, and that makes some
 sense inthat our algorithm teats the set as purely random regardless of how random it is.
