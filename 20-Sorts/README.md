@@ -105,6 +105,13 @@ The result is as follows (is = insertion sort ; ss = selection sort ; bs = bubbl
 | 1000 | 12 | 7 | 6 | 1 |
 | 10000 | 3100 | 15450 | 29500 | 60 |
 
+| Size  	| is   	| ss    	| bs    	| ts  	|
+|-------	|------	|-------	|-------	|-----	|
+| 10    	| 0    	| 0     	| 0     	| 0.5 	|
+| 100   	| 1    	| 1     	| 2     	| 0.7 	|
+| 1000  	| 12   	| 7     	| 6     	| 1   	|
+| 10000 	| 3100 	| 15450 	| 29500 	|     	|
+
 It is clear that the order of efficiency is ts > is > ss > bs as the data size gets larger.
 
 |sample size|is|ss|bs|ts|
