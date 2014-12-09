@@ -35,7 +35,7 @@ The sort studied in this exercise include:
 	* Efficiency Analysis
 		* For the ith time the cursor has moved, finding the minimum takes 1 operation in the best case scenario and n-1 operation in the worst case scenario.
 		* Therefore, for an array of n lists, the best case scenario will consist of n operations (resulted from the best case in each scan) and the worst case scenario results from the sum from 1 to n-1, which simplifies to n(n-1).
-		* This sort is not as efficient as insertion sort for small datasets, but becomes more efficient as the sample size and array length become larger. However, it is still not as efficient as some of the more complicated algorithms.
+		* This sort is not as efficient as insertion sort because it has to loop through the entire list to find the min, and thus its average time stamp is higher than that of insertion sort.
 	* Code:
 	```java
 	public void ssort() {
@@ -88,3 +88,36 @@ The sort studied in this exercise include:
 
 ## Results:
 
+
+The Driver.java file takes two inputs: i and a, it then generates an array of length i out a random
+number generator whose max value is a.
+
+We perform two tests:
+1. Hold the randomness costant (at 1000) and change the size of the array
+2. Hold the size constant (at 1000) and change the randomness
+
+The result is as follows (is = insertion sort ; ss = selection sort ; bs = bubble sort ; ts = timsort):
+
+|size|is|ss|bs|ts|
+|10|0|0|0|0.5|
+|100|1|1|2|0.7|
+|1000|12|7|6|1|
+|10000|3100|15450|29500|60|
+
+It is clear that the order of efficiency is ts > is > ss > bs as the data size gets larger.
+
+|sample size|is|ss|bs|ts|
+|10|12|7|1|6|
+|100|12|7|6|1|
+|1000|12|7|6|1|
+|10000|12|7|6|1|
+
+It seems like randomness (at least at this level) doesn't change the result that much, and that makes some
+sense inthat our algorithm teats the set as purely random regardless of how random it is.
+
+
+## Conclusion
+
+Through this exercise, we learned that timsort is the most optimized out of all the sorting algorithm tested
+within this exercise. We also learned that out of the simple sorting algorithms, insertion sort is
+the most efficient, and bubble sort is, on average, the worst.
