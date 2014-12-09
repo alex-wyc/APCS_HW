@@ -12,7 +12,21 @@ The sort studied in this exercise include:
 	* Efficiency
 		* The best case scenario for the insertion sort is if everything is already in order, or when everything is in reverse order, then it only takes n operations to sort out an array of n elements.
 		* This sort works well on small sample sizes, but becomes more and more inefficient as randomness and size increases, with the worse case scenario having to do n^2 operations to sort out an array.
+	* Code:
+	```java
+	public void isort() {
+		for (int i = 1 ; i <= last ; i++){ // Sorting index
+			T newVal = data[i];
+			int a;
+			for (a = i ; a > 0 && newVal.compareTo(data[a - 1]) < 0 ; a--) {
+				data[a] = data[a-1];
+			}
+			data[a] = newVal;
+		}
+	}
+	```
 * Selection Sort
 	* Procedure
+		1. For each 
 * Bubble Sort
 * Timsort
