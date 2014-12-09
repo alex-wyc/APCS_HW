@@ -6,27 +6,44 @@ public class Driver{
 		//Sarray<String> SAS = new Sarray<String>();
 		Sarray<Integer> SAI = new Sarray<Integer>();
 		Sarray<Integer> SAI2 = new Sarray<Integer>();
+		Sarray<Integer> SAI3 = new Sarray<Integer>();
+		Sarray<Integer> SAI4 = new Sarray<Integer>();
+
 		Random randgen = new Random();
 
 		for (int i = 0 ; i < Integer.parseInt(args[0]) ; i++) {
 			int newVal = randgen.nextInt(Integer.parseInt(args[1]));
 			SAI.add(newVal);
 			SAI2.add(newVal);
+			SAI3.add(newVal);
+			SAI4.add(newVal);
 		}
 
-		System.out.println(SAI.toString());
+		//System.out.println(SAI.toString());
 
 		long isortBegin = System.currentTimeMillis();
-		SAI.bsort();
+		SAI.isort();
 		long isortEnd = System.currentTimeMillis();
-		System.out.println(SAI.toString());
-		System.out.println("Time used for bubble sort:" + (isortEnd-isortBegin));
+		//System.out.println(SAI.toString());
+		System.out.println("Time used for insertion sort:" + (isortEnd-isortBegin));
 
 		long ssortBegin = System.currentTimeMillis();
 		SAI2.ssort();
 		long ssortEnd = System.currentTimeMillis();
-		System.out.println(SAI2.toString());
+		//System.out.println(SAI2.toString());
 		System.out.println("Time used for selection sort:" + (ssortEnd-ssortBegin));
+
+		long dsortBegin = System.currentTimeMillis();
+		SAI3.dsort();
+		long dsortEnd = System.currentTimeMillis();
+		//System.out.println(SAI3.toString());
+		System.out.println("Time used for default sort:" + (dsortEnd - dsortBegin));
+
+		long bsortBegin = System.currentTimeMillis();
+		SAI4.bsort();
+		long bsortEnd = System.currentTimeMillis();
+		//System.out.println(SAI4.toString());
+		System.out.println("Time used for bubble sort:" + (bsortEnd - bsortBegin));
 
 		//Sarray<Double> SAD = new Sarray<Double>();
 /*

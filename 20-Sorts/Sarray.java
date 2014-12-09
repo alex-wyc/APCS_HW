@@ -63,8 +63,12 @@ public class Sarray<T extends Object & Comparable>{
 		}
 
 		else {
-			expand(1);
-			data[data.length - 1] = i;
+			T[] temp = (T[])(new Object[data.length + 1]);
+			for (int a = 0 ; a < data.length ; a++) {
+				temp[a] = data[a];
+			}
+			temp[data.length - 1] = i;
+			data = temp;
 		}
 
 		last++;
@@ -213,6 +217,10 @@ public class Sarray<T extends Object & Comparable>{
 				}
 			}
 		}
+	}
+	
+	public void dsort() {
+		Arrays.sort(data,0,last+1);
 	}
 
 	/*
