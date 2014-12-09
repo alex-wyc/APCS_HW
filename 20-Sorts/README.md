@@ -2,7 +2,7 @@
 
 In this exercise, we explore the efficiencies of different types of sorting algorithms under different circumstances.
 
-The sort studied in this exercise include:
+# Algorithms
 * Insertion Sort
 	* Procedure
 		1. Split the array into two parts -- an unsorted section followed by a sorted section (initialized with 0 elements).
@@ -99,6 +99,7 @@ We perform two tests:
 The result is as follows (is = insertion sort ; ss = selection sort ; bs = bubble sort ; ts = timsort):
 
 |size|is|ss|bs|ts|
+|----|--|--|--|--|
 |10|0|0|0|0.5|
 |100|1|1|2|0.7|
 |1000|12|7|6|1|
@@ -107,6 +108,7 @@ The result is as follows (is = insertion sort ; ss = selection sort ; bs = bubbl
 It is clear that the order of efficiency is ts > is > ss > bs as the data size gets larger.
 
 |sample size|is|ss|bs|ts|
+|-----------|--|--|--|--|
 |10|12|7|1|6|
 |100|12|7|6|1|
 |1000|12|7|6|1|
