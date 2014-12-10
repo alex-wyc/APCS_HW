@@ -906,4 +906,110 @@ one after another to expect multiple types of errors.
 It is important to note that try-catch construct should NOT be used to conceal
 errors from crashing the program. It should be used for cases in which java's
 compiler is being dumb, and gives error for things that can be fixed.
+
+
+\section{2014-12-09}
+
+\subsection{Static vs Non-static}
+
+\subsubsection{Static Methods}
+
+Static methods make the java class look like a C header file that can be included.
+Static variables and functions can be used without creating a specific instance of a class.
+For example, most Arrays.* functions are static methods, since whenever one
+uses it, one does no create an instance of said "Array," but the argument is feeded
+directly to the method. Static methods are useful when one creates a function
+that is not specific to any specific instance of said class.
+
+
+One area where static methods will be useful is if we were to create a class of different sorting
+methods, as shown below:
+\begin{lstlisting}[language=java]
+public class Sort {
+	... ...
+
+	public static <T> void isort(T[] data) {
+		for (int i = 1 ; i <= last ; i++){ // Sorting index
+			T newVal = data[i];
+			int a;
+			for (a = i ; a > 0 && newVal.compareTo(data[a - 1]) < 0 ; a--) {
+				data[a] = data[a-1];
+			}
+			data[a] = newVal;
+		}
+	}
+
+	public static <T> void ssort(T[] data) {
+		T minValue;
+		int minIndex = 0;
+		for (int i = 0 ; i <= last ; i++) {
+			minValue = data[i];
+			minIndex = i;
+			for (int a = i ; a <= last; a++) {
+				if (data[a].compareTo(minValue) <= 0) {
+					minValue = data[a];
+					minIndex = a;
+				}
+			}
+			data[minIndex] = data[i];
+			data[i] = minValue;
+		}
+	}
+
+	public static <T> void bsort(T[] data) {
+		for (int i = 0 ; i <= last ; i++){
+			for (int j = i+1 ; j <= last ; j++)  {
+				if (data[i].compareTo(data[j]) >= 0) {
+					T temp = data[i];
+					data[i] = data[j];
+					data[j] = temp;
+				}
+			}
+		}
+	}
+
+	... ...
+\end{lstlisting}
+
+
+There are certain advantages of using static this way. Firstly it is easily accessalbe
+and makes sorting a lot easier.
+
+\subsubsection{Static Variables}
+
+
+These variables are just like static functions, and are also shared across all instances
+of the said class. This is not quite as useful as static methods because most variables
+are storage of parameters of the class. However, things like random number generator should
+be set to static and shared across all instances to ensure security.
+
+\section{2014-12-10}
+
+\subsection{Interfaces}
+
+Java compiler is condescending and mean. Only overloading methods like .compareTo()
+is not enough to convince the java compiler that your class is comparable. Therefore
+We need to write a verbal contract saying "yo i will include .compareTo() in this class."
+
+
+This contract is what we call "Interfaces." To "sign" these contracts, we use the "implements"
+command when declaring a class, like the following:
+\begin{lstlisting}[language=java]
+public class foo implements boo {
+	...
+	stuff happens
+	...
+}
+\end{lstlisting}
+
+
+On the basic level, an interface is like an abstract class that dictate that the current
+class MUST HAVE certain functions. Some other functions, such as Arrays.sort(array of T)
+also requires the implementation of certain interfaces like Comparable.
+
+
+We'll take the Comparable interface as an example:
+\newline
+The comparable interface requires the existance of method .compareTo(Object other), and
+would raise an error if that method is not found.
 \end{document}

@@ -1,7 +1,16 @@
 import java.util.Random;
 import java.util.Arrays;
 
-public class Interval {
+/* Interface structure:
+
+interface name {
+	method1_signatrure
+	method2_signature
+	etc.
+}
+*/
+
+public class Interval implements Comparable{
 
 	// Instance Vars
 
@@ -50,12 +59,13 @@ public class Interval {
 		higherBound = high;
 	}
 
-	public int compareTo(Interval Other) {
-		if (Other.getLowerBound() == lowerBound) {
-			return higherBound - Other.getHigherBound();
+	public int compareTo(Object Other) {
+		Interval O = (Interval)Other;
+		if (O.getLowerBound() == lowerBound) {
+			return higherBound - O.getHigherBound();
 		}
 		else {
-			return lowerBound - Other.getLowerBound();
+			return lowerBound - O.getLowerBound();
 		}
 	}
 
@@ -82,15 +92,17 @@ public class Interval {
 		Interval c = new Interval(0,20);
 		Interval d = new Interval(5,25);
 		System.out.println(c.compareTo(d));
+		*/
 
 		Interval[] b = new Interval[10];
-		*/
 
 		for (int i = 0 ; i < 10 ; i++) {
 			b[i] = new Interval();
 		}
 
-		isort(b);
+		Arrays.sort(b);
+
+		//isort(b);
 
 		System.out.println(Arrays.toString(b));
 	}
