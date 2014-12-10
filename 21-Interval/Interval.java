@@ -42,6 +42,14 @@ public class Interval {
 		return higherBound;
 	}
 
+	public void setLowerBound(int low) {
+		lowerBound = low;
+	}
+
+	public void setHigherBound(int high) {
+		higherBound = high;
+	}
+
 	public int compareTo(Interval Other) {
 		if (Other.getLowerBound() == lowerBound) {
 			return higherBound - Other.getHigherBound();
@@ -70,7 +78,13 @@ public class Interval {
 			//System.out.println(a.toString());
 		}
 
+		/*
+		Interval c = new Interval(0,20);
+		Interval d = new Interval(5,25);
+		System.out.println(c.compareTo(d));
+
 		Interval[] b = new Interval[10];
+		*/
 
 		for (int i = 0 ; i < 10 ; i++) {
 			b[i] = new Interval();
@@ -79,6 +93,5 @@ public class Interval {
 		isort(b);
 
 		System.out.println(Arrays.toString(b));
-
 	}
 }
