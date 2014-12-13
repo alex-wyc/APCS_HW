@@ -67,12 +67,9 @@ public class Searching {
 
 		// base case
 
-		if (data.length == 2) { // division by two can caust truncation, which isn't good
+		if (data.length == 1) { // division by two can caust truncation, which isn't good
 			if (data[0].equals(item)) {
 				return data[0];
-			}
-			else if (data[1].equals(item)) {
-				return data[1];
 			}
 
 			return null;
@@ -84,31 +81,12 @@ public class Searching {
 			return data[pivotIndex];
 		}
 
-		int newPivotIndex;
-
 		if (item.compareTo(data[pivotIndex]) > 0) { // item is larger, searches pivot -> end
-			
-			if (((data.length - pivotIndex) / 2) == 0) {
-				newPivotIndex = (data.length - pivotIndex) / 2;
-			}
-
-			else {
-				newPivotIndex = ((data.length - pivotIndex) / 2) + 1;
-			}
-
-			return rbsearch(Arrays.copyOfRange(data, pivotIndex, data.length), item, newPivotIndex);
+			return rbsearch(Arrays.copyOfRange(data, pivotIndex, data.length), item, (data.length - pivotIndex) / 2);
 		}
 
 		else { // item is lower, searches 0 -> pivot
-
-			if (((pivotIndex) / 2) == 0) {
-				newPivotIndex = (pivotIndex) / 2;
-			}
-
-			else {
-				newPivotIndex = ((pivotIndex) / 2) + 1;
-			}
-			return rbsearch(Arrays.copyOfRange(data, 0, pivotIndex), item, newPivotIndex);
+			return rbsearch(Arrays.copyOfRange(data, 0, pivotIndex), item, pivotIndex / 2);
 		}
 	}
 
@@ -126,5 +104,7 @@ public class Searching {
 		for (int i = 0 ; i < 100 ; i++) {
 			System.out.println(test.rbsearch(i));
 		}
+
+		System.out.println(test.rbsearch(105));
 	}
 }
