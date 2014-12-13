@@ -16,6 +16,10 @@ public class Searching {
 		return Arrays.toString(data);
 	}
 
+	public Comparable[] getData() {
+		return data;
+	}
+
 	public void add(Comparable item) {
 		
 		for (int i = 0 ; i < data.length ; i++) {
@@ -50,17 +54,48 @@ public class Searching {
 		return null;
 	}
 
-	private void sort() {
-		Arrays.sort(data);
+	public Comparable bsearch(Comparable item) {
+
+		Comparable[] dataset = Arrays.copyOf(data, data.length);
+		Arrays.sort(dataset);
+		int pivot = dataset.length / 2;
+		int flag = 0;
+
+		while (dataset.length != 1) {
+
+			flag = item.compareTo(dataset[pivot]);
+
+			System.out.println("Data: " + Arrays.toString(dataset) + " Pivot: " + pivot + " Flag: " + flag);		
+
+			if (flag == 0) {
+				return dataset[pivot];
+			}
+
+			else if (flag > 0) {
+				dataset = Arrays.copyOfRange(dataset, pivot + 1, data.length);
+				pivot = (data.length - pivot) / 2;
+			}
+
+			else {
+				dataset = Arrays.copyOfRange(dataset, 0, pivot);
+				pivot = pivot / 2;
+			}
+		}
+
+		if (dataset[0].equals(item)) {
+			return dataset[0];
+		}
+		else {
+			return null;
+		}
 	}
 
-//	public Comparable bsearch() {
-//
-//	}
-
 	public Comparable rbsearch(Comparable item) {
+		Comparable[] dataset = Arrays.copyOf(data, data.length);
+		
+		Arrays.sort(dataset);
 		// wrapper function!
-		return rbsearch(data, item, data.length / 2);
+		return rbsearch(dataset, item, dataset.length / 2);
 	}
 
 	private Comparable rbsearch(Comparable[] data, Comparable item, int pivotIndex) {
@@ -82,7 +117,7 @@ public class Searching {
 		}
 
 		if (item.compareTo(data[pivotIndex]) > 0) { // item is larger, searches pivot -> end
-			return rbsearch(Arrays.copyOfRange(data, pivotIndex, data.length), item, (data.length - pivotIndex) / 2);
+			return rbsearch(Arrays.copyOfRange(data, pivotIndex + 1, data.length), item, (data.length - pivotIndex) / 2);
 		}
 
 		else { // item is lower, searches 0 -> pivot
@@ -93,18 +128,23 @@ public class Searching {
 	// MAIN!!
 
 	public static void main(String args[]) {
-		Searching test = new Searching(100);
+		
+		int size = Integer.parseInt(args[0]);
+		
+		Searching test = new Searching(size);
+		Random randgen = new Random();
 
-		for (int i = 0 ; i < 100 ; i++) {
-			test.add(i);
+		for (int i = 0 ; i < size ; i++) {
+			test.add(randgen.nextInt(1000));
 		}
 
 		System.out.println(test.toString());
 
-		for (int i = 0 ; i < 100 ; i++) {
-			System.out.println(test.rbsearch(i));
-		}
+		//System.out.print("\n[");
 
-		System.out.println(test.rbsearch(105));
+		for (int i = 0 ; i < size ; i++) {
+			System.out.println(test.bsearch(test.getData()[i]));
+		}
+		//System.out.print("]\n");
 	}
 }
