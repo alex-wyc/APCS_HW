@@ -32,7 +32,7 @@ public class Searching {
 		throw new ArrayIndexOutOfBoundsException();
 	}
 
-	public static Comparable ISearch(Comparable[] dataset, Comparable item) {
+	public static Comparable lsearch(Comparable[] dataset, Comparable item) {
 		
 		for (int i = 0 ; i < dataset.length ; i++) {
 			if (dataset[i].equals(item)) {
@@ -43,7 +43,7 @@ public class Searching {
 		return null;
 	}
 
-	public Comparable ISearch(Comparable item) {
+	public Comparable lsearch(Comparable item) {
 
 		for (int i = 0 ; i < data.length ; i++) {
 			if (data[i].equals(item)) {
@@ -60,20 +60,20 @@ public class Searching {
 		Arrays.sort(dataset);
 		int pivot = dataset.length / 2;
 		int flag = 0;
+		int originalLength;
 
 		while (dataset.length != 1) {
 
 			flag = item.compareTo(dataset[pivot]);
-
-			System.out.println("Data: " + Arrays.toString(dataset) + " Pivot: " + pivot + " Flag: " + flag);		
 
 			if (flag == 0) {
 				return dataset[pivot];
 			}
 
 			else if (flag > 0) {
-				dataset = Arrays.copyOfRange(dataset, pivot + 1, data.length);
-				pivot = (data.length - pivot) / 2;
+				originalLength = dataset.length;
+				dataset = Arrays.copyOfRange(dataset, pivot + 1, originalLength);
+				pivot = (originalLength - pivot) / 2;
 			}
 
 			else {
@@ -131,20 +131,56 @@ public class Searching {
 		
 		int size = Integer.parseInt(args[0]);
 		
-		Searching test = new Searching(size);
-		Random randgen = new Random();
+		Searching btest = new Searching(size);
+		Searching ltest = new Searching(size);
+		Searching rbtest = new Searching(size);
+
+		Random randgen = new Random(100);
+
+		int el;
 
 		for (int i = 0 ; i < size ; i++) {
-			test.add(randgen.nextInt(1000));
+			el = randgen.nextInt(1000);
+
+			btest.add(el);
+			ltest.add(el);
+			rbtest.add(el);
 		}
 
-		System.out.println(test.toString());
+		//System.out.println(test.toString());
 
 		//System.out.print("\n[");
 
+		long beginTime = System.currentTimeMillis();
+
 		for (int i = 0 ; i < size ; i++) {
-			System.out.println(test.bsearch(test.getData()[i]));
+			ltest.lsearch(ltest.getData()[i]);
 		}
+
+		long endTime = System.currentTimeMillis();
+
+		System.out.println("Linear Search took: " + (endTime - beginTime) + " milliseconds.");
+
+		beginTime = System.currentTimeMillis();
+
+		for (int i = 0 ; i < size ; i++) {
+			btest.bsearch(btest.getData()[i]);
+		}
+
+		endTime = System.currentTimeMillis();
+
+		System.out.println("Binary Search took: " + (endTime - beginTime) + " milliseconds.");
+				
+
+		beginTime = System.currentTimeMillis();
+
+		for (int i = 0 ; i < size ; i++) {
+			rbtest.rbsearch(rbtest.getData()[i]);
+		}
+
+		endTime = System.currentTimeMillis();
+
+		System.out.println("Recursive Binary Search took: " + (endTime - beginTime) + " milliseconds.");
 		//System.out.print("]\n");
 	}
 }
