@@ -1,11 +1,13 @@
 import java.util.*;
+import java.io.*;
+import java.math.*;
 
-public class RSA {
+public class RSA{
 	
 	// Instance variables
 	private String message;
 	private String output;
-	private ArrayList<Integer> primeList = new ArrayList<Long>();
+	private ArrayList<Integer> primeList = new ArrayList<Integer>();
 	private BigInteger m;
 	private int p;
 	private int q;
@@ -23,7 +25,18 @@ public class RSA {
 	}
 
 	// Methods
-	public Encrypt() {
+
+	public void Decrypt(BigInteger n, BigInteger d) {
+		c = BigInteger(message);
+		System.out.print("Decrypting...        ");
+		m = c.pow(d.intValue()).mod(n);
+		output = stringfy(m);
+		System.out.println("[done]");
+		System.out.println("Your decrypted message is: " + output);
+		return;
+	}
+
+	public void Encrypt() {
 		System.out.print("Prime list loading...        ");
 		
 		loadPrimes();
@@ -56,7 +69,7 @@ public class RSA {
 
 		c = m.pow(e.intValue()).mod(n);
 
-		output = stringfy(c);
+		output = c.toString();
 
 		System.out.println("[done]");
 
@@ -66,16 +79,25 @@ public class RSA {
 
 		path = sc.nextLine();
 
-		writeMessage()
-		}
+		writeMessage(path);
+
+		System.out.println("Output file " + path + " created.");
+		System.out.println("Your private key (please keep this safe): \n" + d.toString() + "\ntyping <ENTER> will clear this screen.");
+
+		sc.nextLine();
 	}
 
 	private BigInteger toAscii(String s) {
 		StringBuilder sb = new StringBuilder();
 		String asciiStr = null;
 		BigInteger asciiInt;
+		int newVal;
 
 		for (int i = 0 ; i < s.length() ; i++) {
+			newVal = (int)s.charAt(i);
+			if (newVal < 100) {
+				sb.append(0); // padding
+			}
 			sb.append((int)s.charAt(i));
 		}
 
@@ -83,6 +105,18 @@ public class RSA {
 		asciiInt(asciiStr);
 
 		return asciiInt;
+	}
+
+	private String stringfy(BigInteger n) {
+		String original = n.toString();
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0 ; i < original.length() ; i += 3) {
+			sb.append((char)(int)(original.substring(i, i+3)));
+		}
+
+		String out = sb.toString();
+		return out;
 	}
 
 	private void loadPrimes() {
@@ -106,5 +140,20 @@ public class RSA {
 		}
 
 		return;
+	}
+
+	private void writeMessage(String path) {
+		
+		PrintWriter pw = null;
+
+		try {
+			pw = new PrintWriter(path, "UTF-8");
+		} catch (Exception e) {
+			System.out.println("Invalid path, please check your permission and typing and try again.");
+			System.exit(1);
+		}
+
+		pw.println("Cipher: " + output);
+		pw.println("Public key: " + n.toString() + ", " + e.toString());
 	}
 }
