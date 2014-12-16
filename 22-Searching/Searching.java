@@ -54,10 +54,8 @@ public class Searching {
 		return null;
 	}
 
-	public Comparable bsearch(Comparable item) {
+	public static Comparable SortedBsearch(Comparable[] dataset, Comparable item) {
 
-		Comparable[] dataset = Arrays.copyOf(data, data.length);
-		Arrays.sort(dataset);
 		int pivot = dataset.length / 2;
 		int flag = 0;
 		int originalLength;
@@ -88,6 +86,18 @@ public class Searching {
 		else {
 			return null;
 		}
+
+	}
+
+	public Comparable bsearch(Comparable item) {
+
+		Comparable[] dataset = Arrays.copyOf(data, data.length);
+		Arrays.sort(dataset);
+		return SortedBsearch(dataset,item);
+	}
+
+	public static Comparable SortedRbsearch(Comparable[] dataset, Comparable item) {
+		return rbsearch(dataset, item, dataset.length / 2);
 	}
 
 	public Comparable rbsearch(Comparable item) {
@@ -98,7 +108,7 @@ public class Searching {
 		return rbsearch(dataset, item, dataset.length / 2);
 	}
 
-	private Comparable rbsearch(Comparable[] data, Comparable item, int pivotIndex) {
+	private static Comparable rbsearch(Comparable[] data, Comparable item, int pivotIndex) {
 
 		// base case
 
@@ -134,6 +144,9 @@ public class Searching {
 		Searching btest = new Searching(size);
 		Searching ltest = new Searching(size);
 		Searching rbtest = new Searching(size);
+		Integer[] OrderedLtest = new Integer[size];
+		Integer[] OrderedBtest = new Integer[size];
+		Integer[] OrderedRbtest = new Integer[size];
 
 		Random randgen = new Random(100);
 
@@ -145,11 +158,15 @@ public class Searching {
 			btest.add(el);
 			ltest.add(el);
 			rbtest.add(el);
+			OrderedBtest[i] = i;
+			OrderedLtest[i] = i;
+			OrderedRbtest[i] = i;
+
 		}
 
 		//System.out.println(test.toString());
 
-		//System.out.print("\n[");
+		System.out.println("UNSORTED TEST");
 
 		long beginTime = System.currentTimeMillis();
 
@@ -181,6 +198,39 @@ public class Searching {
 		endTime = System.currentTimeMillis();
 
 		System.out.println("Recursive Binary Search took: " + (endTime - beginTime) + " milliseconds.");
-		//System.out.print("]\n");
+		
+		System.out.println("SORTED TEST");
+
+		beginTime = System.currentTimeMillis();
+
+		for (int i = 0 ; i < size ; i++) {
+			Searching.lsearch(OrderedLtest, OrderedLtest[i]);
+		}
+
+		endTime = System.currentTimeMillis();
+
+		System.out.println("Linear Search took: " + (endTime - beginTime) + " milliseconds.");
+
+		beginTime = System.currentTimeMillis();
+
+		for (int i = 0 ; i < size ; i++) {
+			Searching.SortedBsearch(OrderedBtest, OrderedBtest[i]);
+		}
+
+		endTime = System.currentTimeMillis();
+
+		System.out.println("Binary Search took: " + (endTime - beginTime) + " milliseconds.");
+				
+
+		beginTime = System.currentTimeMillis();
+
+		for (int i = 0 ; i < size ; i++) {
+			Searching.SortedBsearch(OrderedRbtest, OrderedRbtest[i]);
+		}
+
+		endTime = System.currentTimeMillis();
+
+		System.out.println("Recursive Binary Search took: " + (endTime - beginTime) + " milliseconds.");
+
 	}
 }
