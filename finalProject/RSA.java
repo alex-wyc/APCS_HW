@@ -1,126 +1,113 @@
-import java.util.*;
-import java.io.*;
 import java.math.*;
+import java.io.*;
+import java.util.*;
+import java.nio.file.*;
 
-public class RSA{
-	
-	// Instance variables
-	private String message;
-	private String output;
+public class RSA {
+
+	// Instance Variables
+
+	private byte[] output;
+	private byte[] data;
+	private Path path;
 	private ArrayList<Integer> primeList = new ArrayList<Integer>();
-	private BigInteger m;
-	private int p;
-	private int q;
-	private BigInteger n;
-	private BigInteger totient;
-	private BigInteger e = Math.pow(2, 16);
-	private BigInteger d;
-	private BigInteger c;
-	private static Random randgen = new Random();
-	private static Scanner sc = new Scanner(System.in);
+	private Random randgen = new Random();
+	private Scanner sc = new Scanner(System.in);
+	private BufferedReader br = null;
+	private BigInteger modulus;
+	private BigInteger exponent;
+	private BigInteger privatekey;
+	private final BigInteger ONE = new BigInteger("1");
 
 	// Constructor
-	public RSA(String original) {
-		message = original;
+
+	public RSA(String inputPath) {
+		try {
+			File file = new File(inputPath);
+			FileInputStream fis = new FileInputStream(file);
+			int fileLen = (int)(file.length());
+			data = new byte[fileLen];
+			fis.read(data);
+			fis.close();
+		} catch (Exception e) {
+			System.out.println("Invalid path to file. Program will exit now.");
+			System.exit(1);
+		}
 	}
 
 	// Methods
 
-	public void Decrypt(BigInteger n, BigInteger d) {
-		c = BigInteger(message);
-		System.out.print("Decrypting...        ");
-		m = c.pow(d.intValue()).mod(n);
-		output = stringfy(m);
-		System.out.println("[done]");
-		System.out.println("Your decrypted message is: " + output);
+	public void Decrypt(BigInteger privatekey, BigInteger n) {
+
+		System.out.print("Decrypting...					");
+
+		BigInteger cipher = new BigInteger(data);
+
+		BigInteger result = cipher.modPow(privatekey,n);
+
+		output = result.toByteArray();
+
+		System.out.println("[done]\n");
+
+		System.out.println("Decryption complete, please specify which file you want to save the result to:");
+
+		String OutputPath = "";
+
+		OutputPath = sc.nextLine();
+
+		writeMessage(OutputPath);
+
 		return;
 	}
 
 	public void Encrypt() {
-		System.out.print("Prime list loading...        ");
+		System.out.print("Prime list loading...					");
 		
 		loadPrimes();
 
 		System.out.println("[done]");
 		System.out.println();
-		System.out.print("Generating Keys.");
+		System.out.print("Generating Keys...					");
 
-		p = primeList.get(randgen.nextInt(primeList.size()));
-		q = primeList.get(randgen.nextInt(primeList.size()));
-
-		n = ((BigInteger)p) * ((BigInteger)q);
-
-		totient = ((BigInteger)(p - 1)) * ((BigInteger)(q - 1));
-
-		System.out.print(".");
-
-		while (e.gcd(totient) != 1) {
-			e += 1;
-		}
-
-		System.out.print(".        ");
-
-		d = e.modInverse(totient);
-		
-		System.out.println("[done]");
-		System.out.print("Encryption in progress...         ");
-
-		m = toAscii(message);
-
-		c = m.pow(e.intValue()).mod(n);
-
-		output = c.toString();
+		keyGen();
 
 		System.out.println("[done]");
+		System.out.println();
+		System.out.print("Encryption in progress...				");
+
+		output = encrypt(data);
+
+		System.out.println("[done]");
+		System.out.println();
 
 		System.out.println("Encryption complete, please specify which file you want to save the result to:");
 
-		String path = "";
+		String OutputPath = "";
 
-		path = sc.nextLine();
+		OutputPath = sc.nextLine();
 
-		writeMessage(path);
+		writeMessage(OutputPath);
 
 		System.out.println("Output file " + path + " created.");
-		System.out.println("Your private key (please keep this safe): \n" + d.toString() + "\ntyping <ENTER> will clear this screen.");
+		System.out.println();
+		System.out.println("Your public key:\nn: " + modulus.toString() + "\ne: " + exponent.toString());
+		System.out.println();
+		System.out.println("Your private key (please keep this safe): \n" + privatekey.toString() + "\ntyping <ENTER> will clear this screen.");
 
 		sc.nextLine();
+		clearScreen();
+	
 	}
 
-	private BigInteger toAscii(String s) {
-		StringBuilder sb = new StringBuilder();
-		String asciiStr = null;
-		BigInteger asciiInt;
-		int newVal;
+	private byte[] encrypt(byte[] data) {
+		BigInteger m = new BigInteger(data);
 
-		for (int i = 0 ; i < s.length() ; i++) {
-			newVal = (int)s.charAt(i);
-			if (newVal < 100) {
-				sb.append(0); // padding
-			}
-			sb.append((int)s.charAt(i));
-		}
+		BigInteger cipher = m.modPow(exponent, modulus);
 
-		asciiStr = sb.toString();
-		asciiInt(asciiStr);
-
-		return asciiInt;
-	}
-
-	private String stringfy(BigInteger n) {
-		String original = n.toString();
-		StringBuilder sb = new StringBuilder();
-
-		for (int i = 0 ; i < original.length() ; i += 3) {
-			sb.append((char)(int)(original.substring(i, i+3)));
-		}
-
-		String out = sb.toString();
-		return out;
+		return cipher.toByteArray();
 	}
 
 	private void loadPrimes() {
-		BufferedReader br = null;
 
 		try {
 			br = new BufferedReader(new FileReader(".primeList.txt"));
@@ -144,16 +131,41 @@ public class RSA{
 
 	private void writeMessage(String path) {
 		
-		PrintWriter pw = null;
+		FileOutputStream fos = null;
 
 		try {
-			pw = new PrintWriter(path, "UTF-8");
+			fos = new FileOutputStream(path);
+			fos.write(output);
+			fos.close();
+
 		} catch (Exception e) {
 			System.out.println("Invalid path, please check your permission and typing and try again.");
 			System.exit(1);
 		}
+	}
 
-		pw.println("Cipher: " + output);
-		pw.println("Public key: " + n.toString() + ", " + e.toString());
+
+	private void keyGen() {
+
+		long p1, p2; // Prime numbers
+		BigInteger totient;
+
+		p1 = primeList.get(randgen.nextInt(primeList.size() / 2));
+		p2 = primeList.get((primeList.size() / 2) + randgen.nextInt(primeList.size() / 2));
+
+		modulus = BigInteger.valueOf(p1 * p2);
+		totient = BigInteger.valueOf((p1 - 1) * (p2 - 1));
+
+		exponent = BigInteger.valueOf((long)(100 + randgen.nextInt(totient.intValue())));
+
+		while (!(exponent.gcd(totient).equals(ONE))) {
+			exponent = BigInteger.valueOf((long)(100 + randgen.nextInt(totient.intValue())));
+		}
+
+		privatekey = exponent.modInverse(modulus);
+	}
+
+	private void clearScreen() {
+		System.out.println("\033\143");
 	}
 }
