@@ -17,6 +17,7 @@ public class RSA {
 	private BigInteger modulus;
 	private BigInteger exponent;
 	private BigInteger privatekey;
+	private BigInteger totient;
 	private final BigInteger ONE = new BigInteger("1");
 
 	// Constructor
@@ -37,9 +38,11 @@ public class RSA {
 
 	// Methods
 
+	// Decryption Methods
+
 	public void Decrypt(BigInteger privatekey, BigInteger n) {
 
-		System.out.print("Decrypting...					");
+		System.out.print("Decrypting...						");
 
 		BigInteger cipher = new BigInteger(data);
 
@@ -59,6 +62,75 @@ public class RSA {
 
 		return;
 	}
+
+	public void Decrypt2(BigInteger n, BigInteger e) {
+		System.out.print("Generating private key...				");
+
+		totient = totientCalc(n);
+
+		BigInteger privateKey = e.modInverse(totient);
+
+		System.out.println("[done]");
+		System.out.println();
+
+		Decrypt(privateKey, n);
+	}
+
+	
+	public void DecryptUlt(BigInteger n) {
+		System.out.println("This may take a while...");
+
+		modulus = n;
+		totient = totientCalc(n);
+
+		exponent = new BigInteger("2");
+
+		String yesNo = "";
+
+		while (!(yesNo.equals("y"))) {
+			System.out.println("Is this it: " + testDecrypt() + " (y/n)");
+			yesNo = sc.nextLine();
+		}
+	}
+
+	private String testDecrypt() {
+
+		BigInteger publickey;
+		byte[] result;
+
+		while (!(exponent.gcd(totient).equals(ONE))) {
+			exponent = exponent.add(ONE);
+		}
+
+		publickey = exponent.modInverse(totient);
+
+		BigInteger cipher = new BigInteger(data);
+
+		result = cipher.modPow(privatekey,n).toByteArray();
+
+		while (!(alphanumeric(result))) {
+
+			exponent = exponent.add(ONE);
+			while (!(exponent.gcd(totient).equals(ONE))) {
+				exponent = exponent.add(ONE);
+			}
+
+			publickey = exponent.modInverse(totient);
+
+			BigInteger cipher = new BigInteger(data);
+
+			result = cipher.modPow(privatekey,n).toByteArray();
+		}
+
+		return new String(result);
+	}
+
+	private boolean alphanumeric(byte[] data) {
+
+
+	}
+
+	// Encryption Methods
 
 	public void Encrypt() {
 		System.out.print("Prime list loading...					");
@@ -148,7 +220,6 @@ public class RSA {
 	private void keyGen() {
 
 		long p1, p2; // Prime numbers
-		BigInteger totient;
 
 		p1 = primeList.get(randgen.nextInt(primeList.size() / 2));
 		p2 = primeList.get((primeList.size() / 2) + randgen.nextInt(primeList.size() / 2));
@@ -156,14 +227,43 @@ public class RSA {
 		modulus = BigInteger.valueOf(p1 * p2);
 		totient = BigInteger.valueOf((p1 - 1) * (p2 - 1));
 
-		exponent = BigInteger.valueOf((long)(100 + randgen.nextInt(totient.intValue())));
+		exponent = BigInteger.valueOf((long)(Math.pow(2,16) + 1));
 
 		while (!(exponent.gcd(totient).equals(ONE))) {
-			exponent = BigInteger.valueOf((long)(100 + randgen.nextInt(totient.intValue())));
+			exponent = exponent.add(ONE);
 		}
 
-		privatekey = exponent.modInverse(modulus);
+		privatekey = exponent.modInverse(totient);
 	}
+
+	
+	private BigInteger totientCalc(BigInteger modulo) {
+		long n = modulo.longValue();
+		long tot = n;
+
+		for (int p = 2 ; p*p <= n ; p++) {
+			if (n%p == 0) {
+				tot /= p;
+				tot *= (p-1);
+				while (n % p == 0) {
+					n /= p;
+				}
+			}
+		}
+
+		if (n > 1) {
+			tot /= n;
+			tot *= (n - 1);
+		}
+
+		return BigInteger.valueOf(tot);
+	}
+
+	/*
+	private bool printableAscii(String str) {
+
+	}
+	*/
 
 	private void clearScreen() {
 		System.out.println("\033\143");

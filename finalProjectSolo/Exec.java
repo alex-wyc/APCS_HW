@@ -84,14 +84,17 @@ public class Exec{
 							Choice = sc.nextLine();
 						}
 
+						BigInteger n;
+						BigInteger e;
+
 						switch (Choice) {
 							case "y":
 
 								System.out.println("Please enter the public key:");
 								System.out.print("n: ");
-								BigInteger n = new BigInteger(sc.nextLine());
+								n = new BigInteger(sc.nextLine());
 								System.out.print("e: ");
-								BigInteger e = new BigInteger(sc.nextLine());
+								e = new BigInteger(sc.nextLine());
 								System.out.println();
 
 								System.out.println("Please enter the private key:");
@@ -103,9 +106,44 @@ public class Exec{
 								break;
 
 							case "n":
+	
+								String choice2 = "";
+								System.out.println("You have the complete public key right? (y/n) ");
+								choice2 = sc.nextLine();
+
+								while (!(choice2.equals("y") || choice2.equals("n"))) {
+									System.out.println("That ain't a choice buddy.");
+									System.out.println("You have the complete public key right? (y/n) ");
+									choice2 = sc.nextLine();
+								}
+
+								switch (choice2) {
+									case "y":
+
+										System.out.println("No Problemo!");
+										System.out.println("\nPlease enter the public key:");
+										System.out.print("n: ");
+										n = new BigInteger(sc.nextLine());
+										System.out.print("e: ");
+										e = new BigInteger(sc.nextLine());
+										System.out.println();
+
+										toDecrypt.Decrypt2(n,e);
+
+										break;
+
+									case "n":
+
+										System.out.println("This may be a problem (this only works on small files (size <= 256 bytes))");
+										System.out.println("Let's give this a try!");
+										System.out.println("\nPlease enter the public key:");
+										System.out.print("n: ");
+										n = new BigInteger(sc.nextLine());
+
+										toDecrypt.DecryptUlt(n);
+								}
 
 								break;
-
 						}
 
 						break;
