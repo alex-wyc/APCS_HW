@@ -15,9 +15,13 @@ public class Exec{
 		System.out.println("Welcome to <INSERT NAME> tool!");
 		System.out.println();
 		System.out.println("Please chose the cipher you want to use:");
-		System.out.println("1). RSA");
-		System.out.println("2). XOR");
-		System.out.println("3). Rotational");
+		System.out.println("0). Morse Code");
+		System.out.println("1). Rot-N");
+		System.out.println("2). Base-16");
+		System.out.println("3). Base-64");
+		System.out.println("4). RSA");
+		System.out.println("5). XOR");
+		System.out.println("6). Rotational");
 		System.out.println();
 
 		try {
@@ -27,7 +31,7 @@ public class Exec{
 			System.exit(1);
 		}
 
-		while (!(choice < 2 && choice > 0)) {
+		while (!(choice <= 6 && choice >= 0)) {
 			System.out.print("Not implemented yet, please try again: ");
 
 			try {
@@ -44,8 +48,72 @@ public class Exec{
 		clearScreen();
 
 		switch (cryptoSystem) {
-			
+
 			case 1:
+				System.out.println("Do you want to:");
+				System.out.println("1). Encrypt");
+				System.out.println("2). Decrypt");
+				System.out.println();
+				
+				try {
+					choice = Integer.parseInt(sc.nextLine());
+				} catch (Exception e) {
+					System.out.println("Please enter an integer next time");
+				}
+
+				switch(choice) {
+					
+					case 1:
+						System.out.print("Please enter the file you want to encrypt: ");
+						path = sc.nextLine();
+
+						RotN toEncrypt = new RotN(path);
+						toEncrypt.Encrypt();
+
+						break;
+
+					case 2:
+						System.out.print("Please enter the location of the encrypted file: ");
+						path = sc.nextLine();
+
+						RotN toDecrypt = new RotN(path);
+
+						System.out.println();
+
+						System.out.println("Do you have the key? (y/n)");
+						Choice = sc.nextLine();
+
+						while (!(Choice.equals("y") || Choice.equals("n"))) {
+							System.out.println("That ain't a choice buddy.");
+							System.out.print("Do you have the private key? (y/n) ");
+							Choice = sc.nextLine();
+						}
+
+						switch (Choice) {
+							
+							case "y":
+								System.out.print("Good! Now what is the key? ");
+								
+								int key = 0;
+
+								try {
+									key = Integer.parseInt(sc.nextLine());
+								} catch (Exception e) {
+									System.out.println("The key must be an integer");
+									System.exit(1);
+								}
+
+								toDecrypt.Decrypt(key);
+
+						}
+
+						break;
+
+				}
+
+				break;
+			
+			case 4:
 				System.out.println("Do you want to:");
 				System.out.println("1). Encrypt");
 				System.out.println("2). Decrypt");

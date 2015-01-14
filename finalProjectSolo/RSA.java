@@ -106,7 +106,7 @@ public class RSA {
 
 		BigInteger cipher = new BigInteger(data);
 
-		result = cipher.modPow(privatekey,n).toByteArray();
+		result = cipher.modPow(privatekey, modulus).toByteArray();
 
 		while (!(alphanumeric(result))) {
 
@@ -117,17 +117,16 @@ public class RSA {
 
 			publickey = exponent.modInverse(totient);
 
-			BigInteger cipher = new BigInteger(data);
+			cipher = new BigInteger(data);
 
-			result = cipher.modPow(privatekey,n).toByteArray();
+			result = cipher.modPow(privatekey,modulus).toByteArray();
 		}
 
 		return new String(result);
 	}
 
 	private boolean alphanumeric(byte[] data) {
-
-
+		return true;
 	}
 
 	// Encryption Methods
